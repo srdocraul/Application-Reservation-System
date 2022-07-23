@@ -14,7 +14,7 @@ public class Apartment {
     private String imageUrl;
     private boolean freeCancellation = true;
     private double price;
-    @ManyToOne
+    @OneToMany
     @JoinColumn(name = "accommodation_id", nullable = false)
     private Accommodation accommodation;
 
