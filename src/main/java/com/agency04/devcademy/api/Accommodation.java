@@ -16,7 +16,14 @@ public class Accommodation {
     private String subtitle;
     private String description;
 
+    @OneToMany
+    @JoinColumn(name = "accommodation_apartment", nullable = false)
+    private Set<Accommodation> accommodation = new HashSet<>();
+
     public Accommodation() {
+    }
+
+    public Accommodation(String first_apartment, String this_is_subtitle, String this_is_description) {
     }
 
     public Accommodation(Long id, String title, String subtitle, String description) {
@@ -25,6 +32,18 @@ public class Accommodation {
         this.subtitle = subtitle;
         this.description = description;
 
+    }
+
+    public Set<Accommodation> getAccommodation() {
+        return accommodation;
+    }
+
+    public void setAccommodation(Set<Accommodation> accommodation) {
+        this.accommodation = accommodation;
+    }
+
+    public Accommodation(Set<Accommodation> accommodation) {
+        this.accommodation = accommodation;
     }
 
     public String getTitle() {
@@ -59,4 +78,6 @@ public class Accommodation {
         this.id = id;
     }
 
+    public void getApartments() {
+    }
 }

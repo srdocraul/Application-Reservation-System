@@ -6,7 +6,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "apartment")
-public class Apartment {
+public class Apartment{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -19,7 +19,7 @@ public class Apartment {
     private double price;
 
     @OneToMany
-    @JoinColumn(name = "accommodation_apartment", nullable = false)
+    @JoinColumn(name = "apartment_accommodation", nullable = false)
     private Set<Accommodation> accommodation = new HashSet<>();
 
     public Set<Accommodation> getAccommodation() {
@@ -34,7 +34,7 @@ public class Apartment {
         this.accommodation = accommodation;
     }
 
-    public Apartment(Long id, int categorization, int personCount, String imageUrl, boolean freeCancellation, double price) {
+    public Apartment(int categorization, int personCount, String imageUrl, boolean freeCancellation, double price) {
         this.id = id;
         this.categorization = categorization;
         this.personCount = personCount;
