@@ -1,40 +1,30 @@
 package com.agency04.devcademy.api;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Accommodation")
+@Table(name = "accommodation")
 public class Accommodation {
-     @Id
-     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long accommodation_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
     private String title;
     private String subtitle;
     private String description;
-    private Set<Room> rooms;
-    private Set<Apartment> apartments;
-    private Set<MobileHome> mobileHomes;
-
-    public Accommodation(long id, String title, String subtitle, String description, Set<Room> rooms, Set<Apartment> apartments, Set<MobileHome> mobileHomes) {
-        this.accommodation_id = id;
-        this.title = title;
-        this.subtitle = subtitle;
-        this.description = description;
-        this.rooms = rooms;
-        this.apartments = apartments;
-        this.mobileHomes = mobileHomes;
-    }
 
     public Accommodation() {
     }
 
-    public long getId() {
-        return accommodation_id;
-    }
+    public Accommodation(Long id, String title, String subtitle, String description) {
+        this.id = id;
+        this.title = title;
+        this.subtitle = subtitle;
+        this.description = description;
 
-    public void setId(long id) {
-        this.accommodation_id = id;
     }
 
     public String getTitle() {
@@ -61,27 +51,12 @@ public class Accommodation {
         this.description = description;
     }
 
-    public Set<Room> getRooms() {
-        return rooms;
+    public Long getId() {
+        return id;
     }
 
-    public void setRooms(Set<Room> rooms) {
-        this.rooms = rooms;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Set<Apartment> getApartments() {
-        return apartments;
-    }
-
-    public void setApartments(Set<Apartment> apartments) {
-        this.apartments = apartments;
-    }
-
-    public Set<MobileHome> getMobileHomes() {
-        return mobileHomes;
-    }
-
-    public void setMobileHomes(Set<MobileHome> mobileHomes) {
-        this.mobileHomes = mobileHomes;
-    }
 }

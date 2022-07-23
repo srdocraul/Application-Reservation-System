@@ -1,28 +1,29 @@
 package com.agency04.devcademy.api;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "Rooms")
+@Table(name = "room")
 public class Room {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long room_id;
+    @Column(name = "id", nullable = false)
+    private Long id;
+
     private int categorization = 1;
     private int personCount = 1;
     private String imageUrl;
     private boolean freeCancellation = true;
     private double price;
+
     @OneToMany
-    @JoinColumn(name = "accommodation_id", nullable = false)
-    private Accommodation accommodation;
+    @JoinColumn(name = "accommodation_room", nullable = false)
+    private Set<Accommodation> accommodation = new HashSet<>();
 
-    public Room() {
-    }
-
-    public Room(long room_id, int categorization, int personCount, String imageUrl, boolean freeCancellation, double price, Accommodation accommodation) {
-        this.room_id = room_id;
+    public Room(Long id, int categorization, int personCount, String imageUrl, boolean freeCancellation, double price, Set<Accommodation> accommodation) {
+        this.id = id;
         this.categorization = categorization;
         this.personCount = personCount;
         this.imageUrl = imageUrl;
@@ -31,12 +32,7 @@ public class Room {
         this.accommodation = accommodation;
     }
 
-    public long getRoom_id() {
-        return room_id;
-    }
-
-    public void setRoom_id(long room_id) {
-        this.room_id = room_id;
+    public Room() {
     }
 
     public int getCategorization() {
@@ -79,12 +75,20 @@ public class Room {
         this.price = price;
     }
 
-    public Accommodation getAccommodation() {
+    public Set<Accommodation> getAccommodation() {
         return accommodation;
     }
 
-    public void setAccommodation(Accommodation accommodation) {
+    public void setAccommodation(Set<Accommodation> accommodation) {
         this.accommodation = accommodation;
     }
-}
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+}

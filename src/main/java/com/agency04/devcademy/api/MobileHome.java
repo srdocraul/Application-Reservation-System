@@ -1,28 +1,29 @@
 package com.agency04.devcademy.api;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "Mobile Homes")
+@Table(name = "mobile_home")
 public class MobileHome {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long mobileHome_id;
+    @Column(name = "id", nullable = false)
+    private Long id;
+
     private int categorization = 1;
     private int personCount = 1;
     private String imageUrl;
     private boolean freeCancellation = true;
     private double price;
+
     @OneToMany
-    @JoinColumn(name = "accommodation_id", nullable = false)
-    private Accommodation accommodation;
+    @JoinColumn(name = "accommodation_mobileHome", nullable = false)
+    private Set<Accommodation> accommodation = new HashSet<>();
 
-    public MobileHome() {
-    }
-
-    public MobileHome(long mobileHome_id, int categorization, int personCount, String imageUrl, boolean freeCancellation, double price, Accommodation accommodation) {
-        this.mobileHome_id = mobileHome_id;
+    public MobileHome(Long id, int categorization, int personCount, String imageUrl, boolean freeCancellation, double price, Set<Accommodation> accommodation) {
+        this.id = id;
         this.categorization = categorization;
         this.personCount = personCount;
         this.imageUrl = imageUrl;
@@ -31,12 +32,7 @@ public class MobileHome {
         this.accommodation = accommodation;
     }
 
-    public long getMobileHome_id() {
-        return mobileHome_id;
-    }
-
-    public void setMobileHome_id(long mobileHome_id) {
-        this.mobileHome_id = mobileHome_id;
+    public MobileHome() {
     }
 
     public int getCategorization() {
@@ -79,11 +75,20 @@ public class MobileHome {
         this.price = price;
     }
 
-    public Accommodation getAccommodation() {
+    public Set<Accommodation> getAccommodation() {
         return accommodation;
     }
 
-    public void setAccommodation(Accommodation accommodation) {
+    public void setAccommodation(Set<Accommodation> accommodation) {
         this.accommodation = accommodation;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 }
