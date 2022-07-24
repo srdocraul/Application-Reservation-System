@@ -19,6 +19,6 @@ public class AccommodationController {
 
         model.addAttribute("accommodations", accommodationRepository.findAll());
         
-        return "accommodations";
+        return "accommodations/list";
     }
 }

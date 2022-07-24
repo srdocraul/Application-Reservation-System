@@ -26,6 +26,11 @@ public class BootStrapData implements CommandLineRunner{
         accommodation.setSubtitle("Subtitle");
         accommodation.setDescription("Description");
 
+        Accommodation accommodation2 = new Accommodation();
+        accommodation2.setTitle("Ovo je nesto novo");
+        accommodation2.setSubtitle("Ovo je jos novije");
+        accommodation2.setDescription("Opis tog novog");
+
         Apartment apartment = new Apartment();
         apartment.setCategorization(1);
         apartment.setFreeCancellation(true);
@@ -36,6 +41,7 @@ public class BootStrapData implements CommandLineRunner{
 
 
         accommodationRepository.save(accommodation);
+        accommodationRepository.save(accommodation2);
         apartmentRepository.save(apartment);
 
         System.out.println(accommodationRepository.count());
