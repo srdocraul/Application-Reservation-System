@@ -7,20 +7,39 @@ import com.agency04.devcademy.repositories.ApartmentRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-
 @Component
-public class BootStrapData implements CommandLineRunner {
-    private final ApartmentRepository apartmentRepository;
-    private final AccommodationRepository accommodationRepository;
+public class BootStrapData implements CommandLineRunner{
 
-    public BootStrapData(ApartmentRepository apartmentRepository, AccommodationRepository accommodationRepository) {
-        this.apartmentRepository = apartmentRepository;
+    private final AccommodationRepository accommodationRepository;
+    private final ApartmentRepository apartmentRepository;
+
+    public BootStrapData(AccommodationRepository accommodationRepository, ApartmentRepository apartmentRepository) {
         this.accommodationRepository = accommodationRepository;
+        this.apartmentRepository = apartmentRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
-        Apartment app = new Apartment(123,12333,"www.imageUrl.com",true,20.45);
-        Accommodation acc = new Accommodation("String","Stringgg","Stringggss");
+
+        Accommodation accommodation = new Accommodation();
+        accommodation.setTitle("Title");
+        accommodation.setSubtitle("Subtitle");
+        accommodation.setDescription("Description");
+
+        Apartment apartment = new Apartment();
+        apartment.setCategorization(1);
+        apartment.setFreeCancellation(true);
+        apartment.setPrice(1000.0);
+        apartment.setPersonCount(20);
+        apartment.setImageUrl("image.url");
+
+
+
+        accommodationRepository.save(accommodation);
+        apartmentRepository.save(apartment);
+
+        System.out.println(accommodationRepository.count());
+        System.out.println(apartmentRepository.count());
+
     }
 }

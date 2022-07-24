@@ -1,88 +1,32 @@
 package com.agency04.devcademy.api;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
-@Table(name = "apartment")
 public class Apartment{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
     private Long id;
 
-    private int categorization = 1;
-    private int personCount = 1;
+    private Integer categorization = 1;
+    private Integer personCount =1;
     private String imageUrl;
-    private boolean freeCancellation = true;
-    private double price;
+    private Boolean freeCancellation = true;
+    private Double price;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "apartment_accommodation", nullable = false)
-    private Set<Accommodation> accommodation = new HashSet<>();
-
-    public Set<Accommodation> getAccommodation() {
-        return accommodation;
-    }
-
-    public void setAccommodation(Set<Accommodation> accommodation) {
-        this.accommodation = accommodation;
-    }
-
-    public Apartment(Set<Accommodation> accommodation) {
-        this.accommodation = accommodation;
-    }
-
-    public Apartment(int categorization, int personCount, String imageUrl, boolean freeCancellation, double price) {
-        this.id = id;
-        this.categorization = categorization;
-        this.personCount = personCount;
-        this.imageUrl = imageUrl;
-        this.freeCancellation = freeCancellation;
-        this.price = price;
-    }
+    @ManyToOne(targetEntity = Accommodation.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "apartment_id", referencedColumnName = "id")
+    private List<Accommodation> accommodation;
 
     public Apartment() {
     }
 
-    public int getCategorization() {
-        return categorization;
-    }
-
-    public void setCategorization(int categorization) {
+    public Apartment(Integer categorization, Integer personCount, String imageUrl, Boolean freeCancellation, Double price) {
         this.categorization = categorization;
-    }
-
-    public int getPersonCount() {
-        return personCount;
-    }
-
-    public void setPersonCount(int personCount) {
         this.personCount = personCount;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public boolean isFreeCancellation() {
-        return freeCancellation;
-    }
-
-    public void setFreeCancellation(boolean freeCancellation) {
         this.freeCancellation = freeCancellation;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -94,6 +38,46 @@ public class Apartment{
         this.id = id;
     }
 
+    public Integer getCategorization() {
+        return categorization;
+    }
+
+    public void setCategorization(Integer categorization) {
+        this.categorization = categorization;
+    }
+
+    public Integer getPersonCount() {
+        return personCount;
+    }
+
+    public void setPersonCount(Integer personCount) {
+        this.personCount = personCount;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public Boolean getFreeCancellation() {
+        return freeCancellation;
+    }
+
+    public void setFreeCancellation(Boolean freeCancellation) {
+        this.freeCancellation = freeCancellation;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
     @Override
     public String toString() {
         return "Apartment{" +
@@ -103,7 +87,6 @@ public class Apartment{
                 ", imageUrl='" + imageUrl + '\'' +
                 ", freeCancellation=" + freeCancellation +
                 ", price=" + price +
-                ", accommodation=" + accommodation +
                 '}';
     }
 
