@@ -18,7 +18,7 @@ public class Apartment{
     private boolean freeCancellation = true;
     private double price;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "apartment_accommodation", nullable = false)
     private Set<Accommodation> accommodation = new HashSet<>();
 

@@ -16,9 +16,9 @@ public class Accommodation {
     private String subtitle;
     private String description;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "accommodation_apartment", nullable = false)
-    private Set<Accommodation> accommodation = new HashSet<>();
+    private Set<Apartment> apartments = new HashSet<>();
 
     public Accommodation() {
     }
@@ -26,24 +26,17 @@ public class Accommodation {
     public Accommodation(String first_apartment, String this_is_subtitle, String this_is_description) {
     }
 
-    public Accommodation(Long id, String title, String subtitle, String description) {
+    public Accommodation(Long id, String title, String subtitle, String description, Set<Apartment> apartments) {
         this.id = id;
         this.title = title;
         this.subtitle = subtitle;
         this.description = description;
+        this.apartments = apartments;
 
     }
 
-    public Set<Accommodation> getAccommodation() {
-        return accommodation;
-    }
-
-    public void setAccommodation(Set<Accommodation> accommodation) {
-        this.accommodation = accommodation;
-    }
-
-    public Accommodation(Set<Accommodation> accommodation) {
-        this.accommodation = accommodation;
+    public void setApartments(Set<Apartment> apartments) {
+        this.apartments = apartments;
     }
 
     public String getTitle() {
