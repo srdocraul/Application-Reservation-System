@@ -19,6 +19,6 @@ public class ApartmentController {
 
         model.addAttribute("apartments", apartmentRepository.findAll());
 
-        return "apartments";
+        return "apartments/list";
     }
 }
