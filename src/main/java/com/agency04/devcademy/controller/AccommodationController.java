@@ -47,6 +47,7 @@ public class AccommodationController {
        accommodation2.setTitle(accommodationDetails.getTitle());
        accommodation2.setSubtitle(accommodationDetails.getSubtitle());
        accommodation2.setDescription(accommodationDetails.getDescription());
+       accommodation2.setAccommodationType(accommodationDetails.getAccommodationType());
        accommodation2.setCategorization(accommodationDetails.getCategorization());
        accommodation2.setPersonCount(accommodationDetails.getPersonCount());
        accommodation2.setImageUrl(accommodationDetails.getImageUrl());
