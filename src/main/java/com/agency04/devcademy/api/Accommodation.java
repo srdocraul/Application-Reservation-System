@@ -5,23 +5,21 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "accommodations")
 public class Accommodation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String title;
     private String subtitle;
     private String description;
-
     private enum type {
-        Room,
-        Apartment,
-        MobileHome
+        ROOM,APARTMENT,MOBILEHOME
     }
-    private Integer categorization = 1;
-    private Integer personCount = 1;
+    public type accommodationType;
+    private Integer categorization ;
+    private Integer personCount;
     private String imageUrl;
     private Double price;
 
@@ -38,6 +36,7 @@ public class Accommodation {
         this.imageUrl = imageUrl;
         this.price = price;
     }
+
 
     public Integer getCategorization() {
         return categorization;
@@ -101,6 +100,18 @@ public class Accommodation {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Accommodation(type accommodationType) {
+        this.accommodationType = accommodationType;
+    }
+
+    public type getAccommodationType() {
+        return accommodationType;
+    }
+
+    public void setAccommodationType(type accommodationType) {
+        this.accommodationType = accommodationType;
     }
 
     @Override
