@@ -1,7 +1,6 @@
-package com.agency04.devcademy.api;
+package com.agency04.devcademy.model;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
