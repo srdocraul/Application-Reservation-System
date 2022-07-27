@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -19,6 +17,17 @@ import java.util.Optional;
 public class AccommodationServiceImpl implements AccommodationService {
     @Autowired
     private AccommodationRepository accommodationRepository;
+
+    @Override
+    public List<Accommodation> getAllAccommodation() {
+        return this.accommodationRepository.findAll();
+    }
+
+    @Override
+    public ResponseEntity<Accommodation> getAccommodationById(long id) {
+        Accommodation accommodation = accommodationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + id));
+        return ResponseEntity.ok().body(accommodation);
+    }
 
     @Override
     public Accommodation createAccommodation(Accommodation accommodation) {
@@ -32,30 +41,11 @@ public class AccommodationServiceImpl implements AccommodationService {
         if (accommodationDb.isPresent()) {
             //TODO: Implement OOP principal on this class
             Accommodation accommodationUpdate = accommodationDb.get();
-            accommodationUpdate.setId(accommodation.getId());
-            accommodationUpdate.setTitle(accommodation.getTitle());
-            accommodationUpdate.setSubtitle(accommodation.getSubtitle());
-            accommodationUpdate.setDescription(accommodation.getDescription());
-            accommodationUpdate.setAccommodationType(accommodation.getAccommodationType());
-            accommodationUpdate.setPersonCount(accommodation.getPersonCount());
-            accommodationUpdate.setImageUrl(accommodation.getImageUrl());
-            accommodationUpdate.setPrice(accommodation.getPrice());
+            accommodationUpdate.mapFrom(accommodation);
             accommodationRepository.save(accommodationUpdate);
             return accommodationUpdate;
         } else throw new ResourceNotFoundException("Record not found with id : " + accommodation.getId());
     }
-
-    @Override
-    public List<Accommodation> getAllAccommodation() {
-        return this.accommodationRepository.findAll();
-    }
-
-    @Override
-    public ResponseEntity<Accommodation> getAccommodationById(long id) {
-        Accommodation accommodation = accommodationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + id));
-        return ResponseEntity.ok().body(accommodation);
-    }
-
     @Override
     public void deleteAccommodation(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
         Accommodation accommodation = accommodationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + id));
