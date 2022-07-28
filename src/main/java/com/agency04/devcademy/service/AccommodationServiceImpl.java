@@ -1,10 +1,9 @@
 package com.agency04.devcademy.service;
 
-import com.agency04.devcademy.model.Accommodation;
+import com.agency04.devcademy.service.model.Accommodation;
 import com.agency04.devcademy.exception.ResourceNotFoundException;
 import com.agency04.devcademy.repository.AccommodationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,10 +23,7 @@ public class AccommodationServiceImpl implements AccommodationService {
     }
 
     @Override
-    public ResponseEntity<Accommodation> getAccommodationById(long id) {
-        Accommodation accommodation = accommodationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + id));
-        return ResponseEntity.ok().body(accommodation);
-    }
+    public Optional<Accommodation> getAccommodationById(long id) {return this.accommodationRepository.findById(id);}
 
     @Override
     public Accommodation createAccommodation(Accommodation accommodation) {
@@ -39,13 +35,13 @@ public class AccommodationServiceImpl implements AccommodationService {
         Optional<Accommodation> accommodationDb = this.accommodationRepository.findById(accommodation.getId());
 
         if (accommodationDb.isPresent()) {
-            //TODO: Implement OOP principal on this class
             Accommodation accommodationUpdate = accommodationDb.get();
             accommodationUpdate.mapFrom(accommodation);
             accommodationRepository.save(accommodationUpdate);
             return accommodationUpdate;
         } else throw new ResourceNotFoundException("Record not found with id : " + accommodation.getId());
     }
+
     @Override
     public void deleteAccommodation(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
         Accommodation accommodation = accommodationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + id));

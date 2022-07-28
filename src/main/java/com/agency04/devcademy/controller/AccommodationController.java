@@ -1,20 +1,19 @@
 package com.agency04.devcademy.controller;
 
-import com.agency04.devcademy.model.Accommodation;
+import com.agency04.devcademy.service.model.Accommodation;
 import com.agency04.devcademy.service.AccommodationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
 public class AccommodationController {
 
-    @Qualifier("accommodationServiceImpl")
     @Autowired
     private AccommodationServiceImpl accommodationServiceImpl;
 
@@ -24,7 +23,7 @@ public class AccommodationController {
     }
 
     @GetMapping("/accommodations/{id}")
-    public ResponseEntity<ResponseEntity<Accommodation>> getAccommodationById(@PathVariable long id) {
+    public ResponseEntity<Optional<Accommodation>> getAccommodationById(@PathVariable long id) {
         return ResponseEntity.ok().body(accommodationServiceImpl.getAccommodationById(id));
     }
 

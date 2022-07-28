@@ -1,7 +1,4 @@
-package com.agency04.devcademy.model;
-
-import lombok.*;
-import org.hibernate.Hibernate;
+package com.agency04.devcademy.service.model;
 
 import javax.persistence.*;
 import java.util.Objects;
