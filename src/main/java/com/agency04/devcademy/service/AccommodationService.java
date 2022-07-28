@@ -2,6 +2,7 @@ package com.agency04.devcademy.service;
 
 import com.agency04.devcademy.service.model.Accommodation;
 import org.springframework.web.bind.annotation.PathVariable;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +14,7 @@ public interface AccommodationService {
 
     List<Accommodation> getAllAccommodation();
 
-    Optional<Accommodation> getAccommodationById(long id);
+    Accommodation getAccommodationById(long id);
 
     void deleteAccommodation(@PathVariable(value = "id") Long id);
 }

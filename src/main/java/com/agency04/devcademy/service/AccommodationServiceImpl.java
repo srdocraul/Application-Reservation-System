@@ -22,8 +22,14 @@ public class AccommodationServiceImpl implements AccommodationService {
         return this.accommodationRepository.findAll();
     }
 
-    @Override
-    public Optional<Accommodation> getAccommodationById(long id) {return this.accommodationRepository.findById(id);}
+    public Accommodation getAccommodationById(long id) {
+        Optional<Accommodation> accommodationDb = this.accommodationRepository.findById(id);
+        if (accommodationDb.isPresent()) {
+            Accommodation accommodationUpdate = accommodationDb.get();
+            accommodationRepository.save(accommodationUpdate);
+            return accommodationUpdate;
+        } else throw new ResourceNotFoundException("Record not found with id: " + id);
+    }
 
     @Override
     public Accommodation createAccommodation(Accommodation accommodation) {
