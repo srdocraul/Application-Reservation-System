@@ -25,9 +25,7 @@ public class AccommodationServiceImpl implements AccommodationService {
     public Accommodation getAccommodationById(long id) {
         Optional<Accommodation> accommodationDb = this.accommodationRepository.findById(id);
         if (accommodationDb.isPresent()) {
-            Accommodation accommodationUpdate = accommodationDb.get();
-            accommodationRepository.save(accommodationUpdate);
-            return accommodationUpdate;
+            return accommodationDb.get();
         } else throw new ResourceNotFoundException("Record not found with id: " + id);
     }
 
