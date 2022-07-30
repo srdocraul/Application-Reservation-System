@@ -7,25 +7,24 @@ import java.util.Objects;
 @Table(name = "accommodations")
 public class Accommodation {
 
+    public type accommodationType;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
     private String subtitle;
     private String description;
-    private enum type {
-        Room, Apartment, MobileHome;
-    }
-    public type accommodationType;
     private Integer categorization;
     private Integer personCount;
     private String imageUrl;
     private Double price;
 
+    private String ownerName;
+
     public Accommodation() {
     }
 
-    public Accommodation(Long id, String title, String subtitle, String description, Integer categorization, type accommodationType, Integer personCount, String imageUrl, Double price) {
+    public Accommodation(Long id, String title, String subtitle, String description, Integer categorization, type accommodationType, Integer personCount, String imageUrl, Double price, String ownerName) {
         this.id = id;
         this.title = title;
         this.subtitle = subtitle;
@@ -35,6 +34,19 @@ public class Accommodation {
         this.personCount = personCount;
         this.imageUrl = imageUrl;
         this.price = price;
+        this.ownerName = ownerName;
+    }
+
+    public Accommodation(type accommodationType) {
+        this.accommodationType = accommodationType;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
     public Integer getCategorization() {
@@ -101,10 +113,6 @@ public class Accommodation {
         this.description = description;
     }
 
-    public Accommodation(type accommodationType) {
-        this.accommodationType = accommodationType;
-    }
-
     public type getAccommodationType() {
         return accommodationType;
     }
@@ -132,6 +140,7 @@ public class Accommodation {
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
     }
+
     public void mapFrom(Accommodation source) {
         this.setId(source.getId());
         this.setTitle(source.getTitle());
@@ -142,5 +151,9 @@ public class Accommodation {
         this.setPersonCount(source.getPersonCount());
         this.setImageUrl(source.getImageUrl());
         this.setPrice(source.getPrice());
+    }
+
+    private enum type {
+        Room, Apartment, MobileHome
     }
 }

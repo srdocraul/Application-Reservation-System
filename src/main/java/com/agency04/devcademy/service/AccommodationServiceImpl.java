@@ -1,7 +1,7 @@
 package com.agency04.devcademy.service;
 
-import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.exception.ResourceNotFoundException;
+import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.repository.AccommodationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,11 +11,21 @@ import java.util.Optional;
 
 public class AccommodationServiceImpl implements AccommodationService {
     @Autowired
+    Accommodation accommodation;
+    @Autowired
     private AccommodationRepository accommodationRepository;
     @Autowired
     private MobileHomeAccommodationServiceImpl mobileHomeAccommodationService;
     @Autowired
     private RoomAccommodationServiceImpl roomAccommodationService;
+
+    public AccommodationServiceImpl(MobileHomeAccommodationServiceImpl mobileHomeAccommodationService, RoomAccommodationServiceImpl roomAccommodationService) {
+        this.mobileHomeAccommodationService = mobileHomeAccommodationService;
+        this.roomAccommodationService = roomAccommodationService;
+    }
+
+    public AccommodationServiceImpl() {
+    }
 
     @Override
     public List<Accommodation> getAllAccommodation() {
@@ -51,12 +61,4 @@ public class AccommodationServiceImpl implements AccommodationService {
         Accommodation accommodation = accommodationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + id));
         accommodationRepository.delete(accommodation);
     }
-
-    public AccommodationServiceImpl(MobileHomeAccommodationServiceImpl mobileHomeAccommodationService, RoomAccommodationServiceImpl roomAccommodationService){
-        this.mobileHomeAccommodationService = mobileHomeAccommodationService;
-        this. roomAccommodationService = roomAccommodationService;
-    }
-
-    public AccommodationServiceImpl(){}
-
 }
