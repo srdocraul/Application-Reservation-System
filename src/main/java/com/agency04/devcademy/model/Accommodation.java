@@ -1,4 +1,4 @@
-package com.agency04.devcademy.service.model;
+package com.agency04.devcademy.model;
 
 import javax.persistence.*;
 import java.util.Objects;

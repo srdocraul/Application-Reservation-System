@@ -1,6 +1,6 @@
 package com.agency04.devcademy.service;
 
-import com.agency04.devcademy.service.model.Accommodation;
+import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.exception.ResourceNotFoundException;
 import com.agency04.devcademy.repository.AccommodationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-@Transactional
 public class AccommodationServiceImpl implements AccommodationService {
     @Autowired
     private AccommodationRepository accommodationRepository;
@@ -51,4 +49,6 @@ public class AccommodationServiceImpl implements AccommodationService {
         Accommodation accommodation = accommodationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + id));
         accommodationRepository.delete(accommodation);
     }
+
+
 }
