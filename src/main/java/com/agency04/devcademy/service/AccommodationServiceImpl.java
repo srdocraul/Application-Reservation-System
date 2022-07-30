@@ -4,8 +4,6 @@ import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.exception.ResourceNotFoundException;
 import com.agency04.devcademy.repository.AccommodationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
@@ -14,6 +12,10 @@ import java.util.Optional;
 public class AccommodationServiceImpl implements AccommodationService {
     @Autowired
     private AccommodationRepository accommodationRepository;
+    @Autowired
+    private MobileHomeAccommodationServiceImpl mobileHomeAccommodationService;
+    @Autowired
+    private RoomAccommodationServiceImpl roomAccommodationService;
 
     @Override
     public List<Accommodation> getAllAccommodation() {
@@ -50,5 +52,11 @@ public class AccommodationServiceImpl implements AccommodationService {
         accommodationRepository.delete(accommodation);
     }
 
+    public AccommodationServiceImpl(MobileHomeAccommodationServiceImpl mobileHomeAccommodationService, RoomAccommodationServiceImpl roomAccommodationService){
+        this.mobileHomeAccommodationService = mobileHomeAccommodationService;
+        this. roomAccommodationService = roomAccommodationService;
+    }
+
+    public AccommodationServiceImpl(){}
 
 }

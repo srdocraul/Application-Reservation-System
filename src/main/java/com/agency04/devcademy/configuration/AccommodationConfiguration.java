@@ -11,6 +11,11 @@ import org.springframework.context.annotation.Primary;
 @ImportResource("classpath:mobileHomeAccommodationService.xml")
 @Configuration
 public class AccommodationConfiguration {
+
+    MobileHomeAccommodationServiceImpl mobileHomeAccommodationService() {
+        return new MobileHomeAccommodationServiceImpl();
+    }
+
     @Bean
     RoomAccommodationServiceImpl roomAccommodationService() {
         return new RoomAccommodationServiceImpl();
