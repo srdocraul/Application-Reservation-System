@@ -21,10 +21,15 @@ public class Accommodation {
 
     private String ownerName;
 
+    private String hasFacebook;
+
+    private String hasInstagram;
+
     public Accommodation() {
     }
 
-    public Accommodation(Long id, String title, String subtitle, String description, Integer categorization, type accommodationType, Integer personCount, String imageUrl, Double price, String ownerName) {
+    public Accommodation(Long id, String title, String subtitle, String description,
+                         Integer categorization, type accommodationType, Integer personCount, String imageUrl, Double price, String ownerName, String hasFacebook, String hasInstagram) {
         this.id = id;
         this.title = title;
         this.subtitle = subtitle;
@@ -35,10 +40,28 @@ public class Accommodation {
         this.imageUrl = imageUrl;
         this.price = price;
         this.ownerName = ownerName;
+        this.hasFacebook = hasFacebook;
+        this.hasInstagram = hasInstagram;
     }
 
     public Accommodation(type accommodationType) {
         this.accommodationType = accommodationType;
+    }
+
+    public String getHasFacebook() {
+        return hasFacebook;
+    }
+
+    public void setHasFacebook(String hasFacebook) {
+        this.hasFacebook = hasFacebook;
+    }
+
+    public String getHasInstagram() {
+        return hasInstagram;
+    }
+
+    public void setHasInstagram(String hasInstagram) {
+        this.hasInstagram = hasInstagram;
     }
 
     public String getOwnerName() {

@@ -10,23 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class AccommodationServiceImpl implements AccommodationService {
-    @Autowired
-    Accommodation accommodation;
-    @Autowired
-    private AccommodationRepository accommodationRepository;
-    @Autowired
-    private MobileHomeAccommodationServiceImpl mobileHomeAccommodationService;
-    @Autowired
-    private RoomAccommodationServiceImpl roomAccommodationService;
 
-    public AccommodationServiceImpl(MobileHomeAccommodationServiceImpl mobileHomeAccommodationService, RoomAccommodationServiceImpl roomAccommodationService) {
-        this.mobileHomeAccommodationService = mobileHomeAccommodationService;
-        this.roomAccommodationService = roomAccommodationService;
-    }
-
-    public AccommodationServiceImpl() {
-    }
-
+    private @Autowired AccommodationRepository accommodationRepository;
+    
     @Override
     public List<Accommodation> getAllAccommodation() {
         return this.accommodationRepository.findAll();
