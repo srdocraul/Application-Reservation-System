@@ -12,7 +12,7 @@ import java.util.Optional;
 public class AccommodationServiceImpl implements AccommodationService {
 
     private @Autowired AccommodationRepository accommodationRepository;
-    
+
     @Override
     public List<Accommodation> getAllAccommodation() {
         return this.accommodationRepository.findAll();

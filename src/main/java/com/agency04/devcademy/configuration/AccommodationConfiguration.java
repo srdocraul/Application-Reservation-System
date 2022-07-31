@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 
 @PropertySource("classpath:ara.properties")
+@PropertySource("classpath:ara.yml")
 @ImportResource("classpath:mobileHomeAccommodationService.xml")
 @Configuration
 public class AccommodationConfiguration {
@@ -17,7 +18,7 @@ public class AccommodationConfiguration {
         accommodation.setOwnerName(ownerName);
         accommodation.setHasFacebook(hasFacebook);
         accommodation.setHasInstagram(hasInstagram);
-        System.out.println("Owner name " + accommodation.getOwnerName());
+        System.out.println("Owner name: " + accommodation.getOwnerName());
         System.out.println("Facebook link: " + accommodation.getHasFacebook());
         System.out.println("Instagram link: " + accommodation.getHasInstagram());
         return accommodation;
