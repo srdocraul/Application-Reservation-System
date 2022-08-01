@@ -1,6 +1,7 @@
 package com.agency04.devcademy.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "accommodations")
@@ -17,32 +18,12 @@ public class Accommodation {
     private String imageUrl;
     private Double price;
     private String ownerName;
-    private String hasFacebook;
-    private String hasInstagram;
+    private String linkForFacebook;
+    private String linkForInstagram;
     private String nameLocation;
     private Integer postalCodeLocation;
 
     public Accommodation() {
-    }
-
-    public Accommodation(Long id, String title, String subtitle, String description,
-                         Integer categorization, type accommodationType, Integer personCount,
-                         String imageUrl, Double price, String ownerName, String hasFacebook,
-                         String hasInstagram, Location location) {
-        this.id = id;
-        this.title = title;
-        this.subtitle = subtitle;
-        this.description = description;
-        this.categorization = categorization;
-        this.accommodationType = accommodationType;
-        this.personCount = personCount;
-        this.imageUrl = imageUrl;
-        this.price = price;
-        this.ownerName = ownerName;
-        this.hasFacebook = hasFacebook;
-        this.hasInstagram = hasInstagram;
-        this.nameLocation = location.name;
-        this.postalCodeLocation = location.postalCode;
     }
 
     public Accommodation(type accommodationType) {
@@ -65,20 +46,20 @@ public class Accommodation {
         this.postalCodeLocation = postalCodeLocation;
     }
 
-    public String getHasFacebook() {
-        return hasFacebook;
+    public String getLinkForFacebook() {
+        return linkForFacebook;
     }
 
-    public void setHasFacebook(String hasFacebook) {
-        this.hasFacebook = hasFacebook;
+    public void setLinkForFacebook(String linkForFacebook) {
+        this.linkForFacebook = linkForFacebook;
     }
 
-    public String getHasInstagram() {
-        return hasInstagram;
+    public String getLinkForInstagram() {
+        return linkForInstagram;
     }
 
-    public void setHasInstagram(String hasInstagram) {
-        this.hasInstagram = hasInstagram;
+    public void setLinkForInstagram(String linkForInstagram) {
+        this.linkForInstagram = linkForInstagram;
     }
 
     public String getOwnerName() {
@@ -174,8 +155,8 @@ public class Accommodation {
                 ", imageUrl='" + imageUrl + '\'' +
                 ", price=" + price +
                 ", ownerName='" + ownerName + '\'' +
-                ", hasFacebook='" + hasFacebook + '\'' +
-                ", hasInstagram='" + hasInstagram + '\'' +
+                ", hasFacebook='" + linkForFacebook + '\'' +
+                ", hasInstagram='" + linkForInstagram + '\'' +
                 ", nameLocation='" + nameLocation + '\'' +
                 ", postalCodeLocation=" + postalCodeLocation +
                 '}';
@@ -188,7 +169,7 @@ public class Accommodation {
 
         Accommodation that = (Accommodation) o;
 
-        return id != null ? id.equals(that.id) : that.id == null;
+        return Objects.equals(id, that.id);
     }
 
     @Override

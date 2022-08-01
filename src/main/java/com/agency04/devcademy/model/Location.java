@@ -10,7 +10,6 @@ public class Location {
     }
 
     public Location() {
-        isDuplicate();
     }
 
     public String getName() {

@@ -18,11 +18,11 @@ public class AccommodationConfiguration {
                                        @Value("${accommodation.owner.instagram}") String hasInstagram) {
         Accommodation accommodation = new Accommodation();
         accommodation.setOwnerName(ownerName);
-        accommodation.setHasFacebook(hasFacebook);
-        accommodation.setHasInstagram(hasInstagram);
+        accommodation.setLinkForFacebook(hasFacebook);
+        accommodation.setLinkForInstagram(hasInstagram);
         System.out.println("Owner name: " + accommodation.getOwnerName());
-        System.out.println("Facebook link: " + accommodation.getHasFacebook());
-        System.out.println("Instagram link: " + accommodation.getHasInstagram());
+        System.out.println("Facebook link: " + accommodation.getLinkForFacebook());
+        System.out.println("Instagram link: " + accommodation.getLinkForInstagram());
         return accommodation;
     }
 
