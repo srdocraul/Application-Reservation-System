@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class AccommodationServiceImpl implements AccommodationService {
-
-    private @Autowired AccommodationRepository accommodationRepository;
+    @Autowired
+    private AccommodationRepository accommodationRepository;
 
     @Override
     public List<Accommodation> getAllAccommodation() {

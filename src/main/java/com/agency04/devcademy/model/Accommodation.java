@@ -1,13 +1,10 @@
 package com.agency04.devcademy.model;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "accommodations")
 public class Accommodation {
-
-    public type accommodationType;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -15,21 +12,23 @@ public class Accommodation {
     private String subtitle;
     private String description;
     private Integer categorization;
+    private type accommodationType;
     private Integer personCount;
     private String imageUrl;
     private Double price;
-
     private String ownerName;
-
     private String hasFacebook;
-
     private String hasInstagram;
+    private String nameLocation;
+    private Integer postalCodeLocation;
 
     public Accommodation() {
     }
 
     public Accommodation(Long id, String title, String subtitle, String description,
-                         Integer categorization, type accommodationType, Integer personCount, String imageUrl, Double price, String ownerName, String hasFacebook, String hasInstagram) {
+                         Integer categorization, type accommodationType, Integer personCount,
+                         String imageUrl, Double price, String ownerName, String hasFacebook,
+                         String hasInstagram, Location location) {
         this.id = id;
         this.title = title;
         this.subtitle = subtitle;
@@ -42,10 +41,28 @@ public class Accommodation {
         this.ownerName = ownerName;
         this.hasFacebook = hasFacebook;
         this.hasInstagram = hasInstagram;
+        this.nameLocation = location.name;
+        this.postalCodeLocation = location.postalCode;
     }
 
     public Accommodation(type accommodationType) {
         this.accommodationType = accommodationType;
+    }
+
+    public String getNameLocation() {
+        return nameLocation;
+    }
+
+    public void setNameLocation(String nameLocation) {
+        this.nameLocation = nameLocation;
+    }
+
+    public Integer getPostalCodeLocation() {
+        return postalCodeLocation;
+    }
+
+    public void setPostalCodeLocation(Integer postalCodeLocation) {
+        this.postalCodeLocation = postalCodeLocation;
     }
 
     public String getHasFacebook() {
@@ -146,7 +163,22 @@ public class Accommodation {
 
     @Override
     public String toString() {
-        return "Accommodation{" + "id=" + id + ", title='" + title + '\'' + ", subtitle='" + subtitle + '\'' + ", description='" + description + '\'' + ", categorization=" + categorization + ", personCount=" + personCount + ", imageUrl='" + imageUrl + '\'' + ", price=" + price + '}';
+        return "Accommodation{" +
+                "accommodationType=" + accommodationType +
+                ", id=" + id +
+                ", title='" + title + '\'' +
+                ", subtitle='" + subtitle + '\'' +
+                ", description='" + description + '\'' +
+                ", categorization=" + categorization +
+                ", personCount=" + personCount +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", price=" + price +
+                ", ownerName='" + ownerName + '\'' +
+                ", hasFacebook='" + hasFacebook + '\'' +
+                ", hasInstagram='" + hasInstagram + '\'' +
+                ", nameLocation='" + nameLocation + '\'' +
+                ", postalCodeLocation=" + postalCodeLocation +
+                '}';
     }
 
     @Override
@@ -156,7 +188,7 @@ public class Accommodation {
 
         Accommodation that = (Accommodation) o;
 
-        return Objects.equals(id, that.id);
+        return id != null ? id.equals(that.id) : that.id == null;
     }
 
     @Override

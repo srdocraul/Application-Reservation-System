@@ -13,7 +13,9 @@ import org.springframework.context.annotation.*;
 @Configuration
 public class AccommodationConfiguration {
     @Bean
-    Accommodation accommodation(@Value("${accommodation.owner.name}") String ownerName, @Value("${accommodation.owner.facebook}") String hasFacebook, @Value("${accommodation.owner.instagram}") String hasInstagram) {
+    public Accommodation accommodation(@Value("${accommodation.owner.name}") String ownerName,
+                                       @Value("${accommodation.owner.facebook}") String hasFacebook,
+                                       @Value("${accommodation.owner.instagram}") String hasInstagram) {
         Accommodation accommodation = new Accommodation();
         accommodation.setOwnerName(ownerName);
         accommodation.setHasFacebook(hasFacebook);
@@ -24,18 +26,18 @@ public class AccommodationConfiguration {
         return accommodation;
     }
 
-    MobileHomeAccommodationServiceImpl mobileHomeAccommodationService() {
+    public MobileHomeAccommodationServiceImpl mobileHomeAccommodationService() {
         return new MobileHomeAccommodationServiceImpl();
     }
 
     @Bean
-    RoomAccommodationServiceImpl roomAccommodationService() {
+    public RoomAccommodationServiceImpl roomAccommodationService() {
         return new RoomAccommodationServiceImpl();
     }
 
     @Primary
     @Bean
-    AccommodationServiceImpl accommodationServiceImpl() {
+    public AccommodationServiceImpl accommodationServiceImpl() {
         return new AccommodationServiceImpl();
     }
 }
