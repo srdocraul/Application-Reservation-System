@@ -28,7 +28,7 @@ public class Location {
         this.postalCode = postalCode;
     }
 
-    private void isDuplicate() {
+    public void isDuplicate() {
         //TODO: if this location with same name and postCode exists, then throw exception
         System.out.println("Throw error if duplicate");
     }

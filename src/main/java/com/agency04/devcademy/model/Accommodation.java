@@ -30,6 +30,11 @@ public class Accommodation {
         this.accommodationType = accommodationType;
     }
 
+    public void Location(Location location) {
+        this.nameLocation = location.name;
+        this.postalCodeLocation = location.postalCode;
+    }
+
     public String getNameLocation() {
         return nameLocation;
     }

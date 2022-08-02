@@ -27,7 +27,15 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     @Override
     public Accommodation createAccommodation(Accommodation accommodation) {
-        return accommodationRepository.save((accommodation));
+
+        Optional<Accommodation> locationAccommodation = accommodationRepository.findAccommodation(accommodation);
+        if (locationAccommodation.isPresent()) {
+            System.out.println("Record already exists!");
+            return locationAccommodation.get();
+        } else {
+            accommodationRepository.save(accommodation);
+        }
+        return accommodation;
     }
 
     @Override
