@@ -20,8 +20,11 @@ public class Accommodation {
     private String ownerName;
     private String linkForFacebook;
     private String linkForInstagram;
-    private String nameLocation;
-    private Integer postalCodeLocation;
+    private String getLocationName;
+    private Integer getLocationPostalCode;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "location_id", referencedColumnName = "id")
+    private Location location;
 
     public Accommodation() {
     }
@@ -31,24 +34,8 @@ public class Accommodation {
     }
 
     public void Location(Location location) {
-        this.nameLocation = location.name;
-        this.postalCodeLocation = location.postalCode;
-    }
-
-    public String getNameLocation() {
-        return nameLocation;
-    }
-
-    public void setNameLocation(String nameLocation) {
-        this.nameLocation = nameLocation;
-    }
-
-    public Integer getPostalCodeLocation() {
-        return postalCodeLocation;
-    }
-
-    public void setPostalCodeLocation(Integer postalCodeLocation) {
-        this.postalCodeLocation = postalCodeLocation;
+        this.getLocationName = location.name;
+        this.getLocationPostalCode = location.postalCode;
     }
 
     public String getLinkForFacebook() {
@@ -162,8 +149,6 @@ public class Accommodation {
                 ", ownerName='" + ownerName + '\'' +
                 ", hasFacebook='" + linkForFacebook + '\'' +
                 ", hasInstagram='" + linkForInstagram + '\'' +
-                ", nameLocation='" + nameLocation + '\'' +
-                ", postalCodeLocation=" + postalCodeLocation +
                 '}';
     }
 
@@ -192,6 +177,18 @@ public class Accommodation {
         this.setPersonCount(source.getPersonCount());
         this.setImageUrl(source.getImageUrl());
         this.setPrice(source.getPrice());
+    }
+
+    public String getGetLocationName() {
+        return getLocationName;
+    }
+
+    public void setGetLocationName(String getLocationName) {
+        this.getLocationName = getLocationName;
+    }
+
+    public Integer getGetLocationPostalCode() {
+        return getLocationPostalCode;
     }
 
     private enum type {

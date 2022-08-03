@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 public interface AccommodationService {
-
     Accommodation createAccommodation(Accommodation accommodation);
 
     Accommodation updateAccommodation(Accommodation accommodation);

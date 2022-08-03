@@ -1,13 +1,18 @@
 package com.agency04.devcademy.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "locations")
 public class Location {
     public String name;
     public Integer postalCode;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-    public Location(String name, Integer postalCode) {
-        this.name = name;
-        this.postalCode = postalCode;
-    }
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "location")
+    private Accommodation accommodation;
 
     public Location() {
     }
@@ -26,5 +31,21 @@ public class Location {
 
     public void setPostalCode(Integer postalCode) {
         this.postalCode = postalCode;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Accommodation getAccommodation() {
+        return accommodation;
+    }
+
+    public void setAccommodation(Accommodation accommodation) {
+        this.accommodation = accommodation;
     }
 }

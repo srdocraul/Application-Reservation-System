@@ -2,7 +2,9 @@ package com.agency04.devcademy.service;
 
 import com.agency04.devcademy.exception.ResourceNotFoundException;
 import com.agency04.devcademy.model.Accommodation;
+import com.agency04.devcademy.model.Location;
 import com.agency04.devcademy.repository.AccommodationRepository;
+import com.agency04.devcademy.repository.FindByNameAndPostalCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -12,6 +14,9 @@ import java.util.Optional;
 public class AccommodationServiceImpl implements AccommodationService {
     @Autowired
     private AccommodationRepository accommodationRepository;
+
+    @Autowired
+    private FindByNameAndPostalCode findLocation;
 
     @Override
     public List<Accommodation> getAllAccommodation() {
@@ -27,15 +32,11 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     @Override
     public Accommodation createAccommodation(Accommodation accommodation) {
-
-        Optional<Accommodation> locationAccommodation = accommodationRepository.findAccommodation(accommodation);
-        if (locationAccommodation.isPresent()) {
-            System.out.println("Record already exists!");
-            return locationAccommodation.get();
-        } else {
-            accommodationRepository.save(accommodation);
-        }
-        return accommodation;
+        Optional<Location> location = findLocation.findByNameAndPostalCode(accommodation.getGetLocationName(), accommodation.getGetLocationPostalCode());
+        if (location.isPresent())
+            return location.get().getAccommodation();
+        else
+            return accommodationRepository.save(accommodation);
     }
 
     @Override
