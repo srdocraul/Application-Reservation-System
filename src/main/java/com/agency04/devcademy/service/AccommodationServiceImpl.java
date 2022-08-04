@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class AccommodationServiceImpl implements AccommodationService {
-    Location location = new Location();
+    private final Location location = new Location();
     @Autowired
     private AccommodationRepository accommodationRepository;
     @Autowired
@@ -35,9 +35,8 @@ public class AccommodationServiceImpl implements AccommodationService {
         List<Location> locationOptional = locationRepository.findByNameAndPostalCode(location.getName(), location.getPostalCode());
         if (locationOptional.isEmpty()) {
             accommodationRepository.save(accommodation);
-            locationRepository.save(location);
         } else {
-            throw new ResourceNotFoundException("Record already exists : ");
+            throw new ResourceNotFoundException("Record already exists : " + accommodation.getId());
         }
         return accommodation;
     }

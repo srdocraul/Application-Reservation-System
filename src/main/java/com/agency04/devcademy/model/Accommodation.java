@@ -130,18 +130,19 @@ public class Accommodation {
     @Override
     public String toString() {
         return "Accommodation{" +
-                "accommodationType=" + accommodationType +
-                ", id=" + id +
+                "id=" + id +
                 ", title='" + title + '\'' +
                 ", subtitle='" + subtitle + '\'' +
                 ", description='" + description + '\'' +
                 ", categorization=" + categorization +
+                ", accommodationType=" + accommodationType +
                 ", personCount=" + personCount +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", price=" + price +
                 ", ownerName='" + ownerName + '\'' +
-                ", hasFacebook='" + linkForFacebook + '\'' +
-                ", hasInstagram='" + linkForInstagram + '\'' +
+                ", linkForFacebook='" + linkForFacebook + '\'' +
+                ", linkForInstagram='" + linkForInstagram + '\'' +
+                ", location=" + location +
                 '}';
     }
 
