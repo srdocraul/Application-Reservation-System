@@ -4,7 +4,7 @@ import com.agency04.devcademy.exception.ResourceNotFoundException;
 import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.model.Location;
 import com.agency04.devcademy.repository.AccommodationRepository;
-import com.agency04.devcademy.repository.FindByNameAndPostalCode;
+import com.agency04.devcademy.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class AccommodationServiceImpl implements AccommodationService {
+    Location location = new Location();
     @Autowired
     private AccommodationRepository accommodationRepository;
-
     @Autowired
-    private FindByNameAndPostalCode findLocation;
+    private LocationRepository locationRepository;
 
     @Override
     public List<Accommodation> getAllAccommodation() {
@@ -32,11 +32,14 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     @Override
     public Accommodation createAccommodation(Accommodation accommodation) {
-        Optional<Location> location = findLocation.findByNameAndPostalCode(accommodation.getGetLocationName(), accommodation.getGetLocationPostalCode());
-        if (location.isPresent())
-            return location.get().getAccommodation();
-        else
-            return accommodationRepository.save(accommodation);
+        List<Location> locationOptional = locationRepository.findByNameAndPostalCode(location.getName(), location.getPostalCode());
+        if (locationOptional.isEmpty()) {
+            accommodationRepository.save(accommodation);
+            locationRepository.save(location);
+        } else {
+            throw new ResourceNotFoundException("Record already exists : ");
+        }
+        return accommodation;
     }
 
     @Override

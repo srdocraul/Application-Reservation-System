@@ -26,7 +26,7 @@ public class AccommodationController {
     }
 
     @PostMapping("/accommodations")
-    public ResponseEntity<Accommodation> createAccommodation(@RequestBody Accommodation accommodation) {
+    public ResponseEntity<Accommodation> createAccommodation(Accommodation accommodation) {
         return ResponseEntity.ok().body(this.accommodationServiceImpl.createAccommodation(accommodation));
     }
 

@@ -3,7 +3,7 @@ package com.agency04.devcademy.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "locations")
+@Table(name = "Location", uniqueConstraints = {@UniqueConstraint(name = "UniqueCityAndPostalCode", columnNames = {"name", "postalCode"})})
 public class Location {
     public String name;
     public Integer postalCode;
@@ -11,10 +11,12 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "location")
-    private Accommodation accommodation;
-
     public Location() {
+    }
+
+    public Location(String name, Integer postalCode) {
+        this.setName(name);
+        this.setPostalCode(postalCode);
     }
 
     public String getName() {
@@ -41,11 +43,4 @@ public class Location {
         this.id = id;
     }
 
-    public Accommodation getAccommodation() {
-        return accommodation;
-    }
-
-    public void setAccommodation(Accommodation accommodation) {
-        this.accommodation = accommodation;
-    }
 }

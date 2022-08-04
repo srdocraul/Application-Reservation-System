@@ -20,8 +20,6 @@ public class Accommodation {
     private String ownerName;
     private String linkForFacebook;
     private String linkForInstagram;
-    private String getLocationName;
-    private Integer getLocationPostalCode;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location location;
@@ -31,11 +29,6 @@ public class Accommodation {
 
     public Accommodation(type accommodationType) {
         this.accommodationType = accommodationType;
-    }
-
-    public void Location(Location location) {
-        this.getLocationName = location.name;
-        this.getLocationPostalCode = location.postalCode;
     }
 
     public String getLinkForFacebook() {
@@ -179,16 +172,12 @@ public class Accommodation {
         this.setPrice(source.getPrice());
     }
 
-    public String getGetLocationName() {
-        return getLocationName;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setGetLocationName(String getLocationName) {
-        this.getLocationName = getLocationName;
-    }
-
-    public Integer getGetLocationPostalCode() {
-        return getLocationPostalCode;
+    public Location setLocation(Location location) {
+        return this.location = location;
     }
 
     private enum type {
