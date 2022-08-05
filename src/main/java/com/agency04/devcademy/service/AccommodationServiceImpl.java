@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class AccommodationServiceImpl implements AccommodationService {
     private final Location location = new Location();
@@ -32,7 +33,7 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     @Override
     public Accommodation createAccommodation(Accommodation accommodation) {
-        List<Location> locationOptional = locationRepository.findByNameAndPostalCode(location.getName(), location.getPostalCode());
+        Set<Location> locationOptional = locationRepository.findByNameAndPostalCode(location.getName(), location.getPostalCode());
         if (locationOptional.isEmpty()) {
             return accommodationRepository.save(accommodation);
         } else {
