@@ -1,34 +1,51 @@
 package com.agency04.devcademy.model;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "accommodations")
-public class Accommodation {
+public class Accommodation extends Auditable<String> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     private Long id;
+    @Column(length = 100)
     private String title;
+    @Column(length = 200)
     private String subtitle;
     private String description;
+    @Column(length = 5)
     private Integer categorization;
-    private type accommodationType;
+    private AccommodationType type;
     private Integer personCount;
     private String imageUrl;
+
     private Double price;
     private String ownerName;
     private String linkForFacebook;
     private String linkForInstagram;
+    @Column(columnDefinition = "BOOLEAN DEFAULT true")
+    private Boolean freeCancellation;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location location;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accommodation")
+    private Set<Reservation> reservation;
 
     public Accommodation() {
     }
 
-    public Accommodation(type accommodationType) {
-        this.accommodationType = accommodationType;
+
+    public Boolean getFreeCancellation() {
+        return freeCancellation;
+    }
+
+    public void setFreeCancellation(Boolean freeCancellation) {
+        this.freeCancellation = freeCancellation;
     }
 
     public String getLinkForFacebook() {
@@ -119,12 +136,20 @@ public class Accommodation {
         this.description = description;
     }
 
-    public type getAccommodationType() {
-        return accommodationType;
+    public AccommodationType getType() {
+        return type;
     }
 
-    public void setAccommodationType(type accommodationType) {
-        this.accommodationType = accommodationType;
+    public void setType(AccommodationType type) {
+        this.type = type;
+    }
+
+    public Set<Reservation> getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Set<Reservation> reservation) {
+        this.reservation = reservation;
     }
 
     @Override
@@ -135,7 +160,7 @@ public class Accommodation {
                 ", subtitle='" + subtitle + '\'' +
                 ", description='" + description + '\'' +
                 ", categorization=" + categorization +
-                ", accommodationType=" + accommodationType +
+                ", type=" + type +
                 ", personCount=" + personCount +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", price=" + price +
@@ -167,10 +192,11 @@ public class Accommodation {
         this.setSubtitle(source.getTitle());
         this.setDescription(source.getDescription());
         this.setCategorization(source.getCategorization());
-        this.setAccommodationType(source.getAccommodationType());
+        this.setType(source.getType());
         this.setPersonCount(source.getPersonCount());
         this.setImageUrl(source.getImageUrl());
         this.setPrice(source.getPrice());
+        this.setFreeCancellation(source.getFreeCancellation());
     }
 
     public Location getLocation() {
@@ -179,9 +205,5 @@ public class Accommodation {
 
     public Location setLocation(Location location) {
         return this.location = location;
-    }
-
-    private enum type {
-        Room, Apartment, MobileHome
     }
 }

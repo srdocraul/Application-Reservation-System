@@ -3,13 +3,17 @@ package com.agency04.devcademy.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Location", uniqueConstraints = {@UniqueConstraint(name = "UniqueCityAndPostalCode", columnNames = {"name", "postalCode"})})
-public class Location {
-    public String name;
-    public Integer postalCode;
+@Table(name = "Location")
+public class Location extends Auditable<String> {
+    @Column(length = 150)
+    private String name;
+    private Integer postalCode;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @OneToOne
+    private Accommodation accommodation;
 
     public Location() {
     }
@@ -41,5 +45,13 @@ public class Location {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Accommodation getAccommodation() {
+        return accommodation;
+    }
+
+    public void setAccommodation(Accommodation accommodation) {
+        this.accommodation = accommodation;
     }
 }

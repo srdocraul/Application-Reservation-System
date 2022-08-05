@@ -2,14 +2,14 @@ package com.agency04.devcademy.configuration;
 
 import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.service.AccommodationServiceImpl;
-import com.agency04.devcademy.service.MobileHomeAccommodationServiceImpl;
-import com.agency04.devcademy.service.RoomAccommodationServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.PropertySource;
 
 @PropertySource("classpath:ara.properties")
 @PropertySource("classpath:ara.yml")
-@ImportResource("classpath:mobileHomeAccommodationService.xml")
 @Configuration
 public class AccommodationConfiguration {
     @Bean
@@ -24,15 +24,6 @@ public class AccommodationConfiguration {
         System.out.println("Facebook link: " + accommodation.getLinkForFacebook());
         System.out.println("Instagram link: " + accommodation.getLinkForInstagram());
         return accommodation;
-    }
-
-    public MobileHomeAccommodationServiceImpl mobileHomeAccommodationService() {
-        return new MobileHomeAccommodationServiceImpl();
-    }
-
-    @Bean
-    public RoomAccommodationServiceImpl roomAccommodationService() {
-        return new RoomAccommodationServiceImpl();
     }
 
     @Primary

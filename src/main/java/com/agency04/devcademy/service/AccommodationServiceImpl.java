@@ -34,11 +34,10 @@ public class AccommodationServiceImpl implements AccommodationService {
     public Accommodation createAccommodation(Accommodation accommodation) {
         List<Location> locationOptional = locationRepository.findByNameAndPostalCode(location.getName(), location.getPostalCode());
         if (locationOptional.isEmpty()) {
-            accommodationRepository.save(accommodation);
+            return accommodationRepository.save(accommodation);
         } else {
             throw new ResourceNotFoundException("Record already exists : " + accommodation.getId());
         }
-        return accommodation;
     }
 
     @Override
