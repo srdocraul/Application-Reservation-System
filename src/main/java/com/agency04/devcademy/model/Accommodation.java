@@ -1,4 +1,4 @@
-package com.agency04.devcademy.service.model;
+package com.agency04.devcademy.model;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -6,35 +6,53 @@ import java.util.Objects;
 @Entity
 @Table(name = "accommodations")
 public class Accommodation {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
     private String subtitle;
     private String description;
-    private enum type {
-        Room, Apartment, MobileHome;
-    }
-    public type accommodationType;
     private Integer categorization;
+    private type accommodationType;
     private Integer personCount;
     private String imageUrl;
     private Double price;
+    private String ownerName;
+    private String linkForFacebook;
+    private String linkForInstagram;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "location_id", referencedColumnName = "id")
+    private Location location;
 
     public Accommodation() {
     }
 
-    public Accommodation(Long id, String title, String subtitle, String description, Integer categorization, type accommodationType, Integer personCount, String imageUrl, Double price) {
-        this.id = id;
-        this.title = title;
-        this.subtitle = subtitle;
-        this.description = description;
-        this.categorization = categorization;
+    public Accommodation(type accommodationType) {
         this.accommodationType = accommodationType;
-        this.personCount = personCount;
-        this.imageUrl = imageUrl;
-        this.price = price;
+    }
+
+    public String getLinkForFacebook() {
+        return linkForFacebook;
+    }
+
+    public void setLinkForFacebook(String linkForFacebook) {
+        this.linkForFacebook = linkForFacebook;
+    }
+
+    public String getLinkForInstagram() {
+        return linkForInstagram;
+    }
+
+    public void setLinkForInstagram(String linkForInstagram) {
+        this.linkForInstagram = linkForInstagram;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
     public Integer getCategorization() {
@@ -101,10 +119,6 @@ public class Accommodation {
         this.description = description;
     }
 
-    public Accommodation(type accommodationType) {
-        this.accommodationType = accommodationType;
-    }
-
     public type getAccommodationType() {
         return accommodationType;
     }
@@ -115,7 +129,21 @@ public class Accommodation {
 
     @Override
     public String toString() {
-        return "Accommodation{" + "id=" + id + ", title='" + title + '\'' + ", subtitle='" + subtitle + '\'' + ", description='" + description + '\'' + ", categorization=" + categorization + ", personCount=" + personCount + ", imageUrl='" + imageUrl + '\'' + ", price=" + price + '}';
+        return "Accommodation{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", subtitle='" + subtitle + '\'' +
+                ", description='" + description + '\'' +
+                ", categorization=" + categorization +
+                ", accommodationType=" + accommodationType +
+                ", personCount=" + personCount +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", price=" + price +
+                ", ownerName='" + ownerName + '\'' +
+                ", linkForFacebook='" + linkForFacebook + '\'' +
+                ", linkForInstagram='" + linkForInstagram + '\'' +
+                ", location=" + location +
+                '}';
     }
 
     @Override
@@ -132,6 +160,7 @@ public class Accommodation {
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
     }
+
     public void mapFrom(Accommodation source) {
         this.setId(source.getId());
         this.setTitle(source.getTitle());
@@ -142,5 +171,17 @@ public class Accommodation {
         this.setPersonCount(source.getPersonCount());
         this.setImageUrl(source.getImageUrl());
         this.setPrice(source.getPrice());
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public Location setLocation(Location location) {
+        return this.location = location;
+    }
+
+    private enum type {
+        Room, Apartment, MobileHome
     }
 }

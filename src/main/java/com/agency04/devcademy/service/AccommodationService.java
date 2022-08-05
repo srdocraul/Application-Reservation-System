@@ -1,10 +1,9 @@
 package com.agency04.devcademy.service;
 
-import com.agency04.devcademy.service.model.Accommodation;
+import com.agency04.devcademy.model.Accommodation;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface AccommodationService {
 

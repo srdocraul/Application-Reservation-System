@@ -1,21 +1,22 @@
 package com.agency04.devcademy.service;
 
-import com.agency04.devcademy.service.model.Accommodation;
 import com.agency04.devcademy.exception.ResourceNotFoundException;
+import com.agency04.devcademy.model.Accommodation;
+import com.agency04.devcademy.model.Location;
 import com.agency04.devcademy.repository.AccommodationRepository;
+import com.agency04.devcademy.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-@Transactional
 public class AccommodationServiceImpl implements AccommodationService {
+    private final Location location = new Location();
     @Autowired
     private AccommodationRepository accommodationRepository;
+    @Autowired
+    private LocationRepository locationRepository;
 
     @Override
     public List<Accommodation> getAllAccommodation() {
@@ -31,7 +32,13 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     @Override
     public Accommodation createAccommodation(Accommodation accommodation) {
-        return accommodationRepository.save((accommodation));
+        List<Location> locationOptional = locationRepository.findByNameAndPostalCode(location.getName(), location.getPostalCode());
+        if (locationOptional.isEmpty()) {
+            accommodationRepository.save(accommodation);
+        } else {
+            throw new ResourceNotFoundException("Record already exists : " + accommodation.getId());
+        }
+        return accommodation;
     }
 
     @Override
