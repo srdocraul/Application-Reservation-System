@@ -10,6 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface LocationRepository extends JpaRepository<Location, Long> {
-    @Query("select location from Location location where location.name = :#{#req. name} and location.postalCode = :#{#req.postalCode}")
+    @Query("select location from Location location where location.title = :#{#req. title} and location.postalCode = :#{#req.postalCode}")
     Optional<Location> findLocation(@Param("req") Location req);
 }

@@ -10,7 +10,7 @@ import java.util.Set;
 @Entity
 @Data
 @NoArgsConstructor
-public class Users extends Auditable<String> {
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

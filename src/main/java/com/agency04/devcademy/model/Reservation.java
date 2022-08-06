@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @NoArgsConstructor
-public class Reservation extends Auditable<String> {
+public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

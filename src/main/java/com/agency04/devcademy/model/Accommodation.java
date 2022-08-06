@@ -11,7 +11,7 @@ import java.util.Set;
 @Table(name = "accommodations")
 @Data
 @NoArgsConstructor
-public class Accommodation extends Auditable<String> {
+public class Accommodation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,8 +22,9 @@ public class Accommodation extends Auditable<String> {
     @Column(length = 200)
     private String subtitle;
     private String description;
-    @Column(length = 5)
+    @Column(length = 6)
     private Integer categorization;
+    @Enumerated(EnumType.STRING)
     private AccommodationType type;
     private Integer personCount;
     private String imageUrl;
