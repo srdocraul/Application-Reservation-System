@@ -19,4 +19,9 @@ public class Location extends Auditable<String> {
 
     @OneToOne
     private Accommodation accommodation;
+
+    public void mapFrom(Location source) {
+        this.setName(source.getName());
+        this.setPostalCode(source.getPostalCode());
+    }
 }

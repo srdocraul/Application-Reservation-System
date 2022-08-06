@@ -2,29 +2,24 @@ package com.agency04.devcademy.service;
 
 import com.agency04.devcademy.exception.ResourceNotFoundException;
 import com.agency04.devcademy.model.Accommodation;
-import com.agency04.devcademy.model.Location;
 import com.agency04.devcademy.repository.AccommodationRepository;
-import com.agency04.devcademy.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+
 
 public class AccommodationServiceImpl implements AccommodationService {
-    private final Location location = new Location();
     @Autowired
     private AccommodationRepository accommodationRepository;
-    @Autowired
-    private LocationRepository locationRepository;
 
     @Override
     public List<Accommodation> getAllAccommodation() {
         return this.accommodationRepository.findAll();
     }
 
-    public Accommodation getAccommodationById(long id) {
+    public Accommodation getAccommodationById(Long id) {
         Optional<Accommodation> accommodationDb = this.accommodationRepository.findById(id);
         if (accommodationDb.isPresent()) {
             return accommodationDb.get();
@@ -33,12 +28,7 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     @Override
     public Accommodation createAccommodation(Accommodation accommodation) {
-        Set<Location> locationOptional = locationRepository.findByNameAndPostalCode(location.getName(), location.getPostalCode());
-        if (locationOptional.isEmpty()) {
-            return accommodationRepository.save(accommodation);
-        } else {
-            throw new ResourceNotFoundException("Record already exists : " + accommodation.getId());
-        }
+        return accommodationRepository.save(accommodation);
     }
 
     @Override
@@ -55,7 +45,7 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     @Override
     public void deleteAccommodation(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
-        Accommodation accommodation = accommodationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + id));
+        Accommodation accommodation = accommodationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Accommodation not found by this id :: " + id));
         accommodationRepository.delete(accommodation);
     }
 }

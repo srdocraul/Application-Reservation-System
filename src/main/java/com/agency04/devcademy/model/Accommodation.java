@@ -41,7 +41,6 @@ public class Accommodation extends Auditable<String> {
     private Set<Reservation> reservation;
 
     public void mapFrom(Accommodation source) {
-        this.setId(source.getId());
         this.setTitle(source.getTitle());
         this.setSubtitle(source.getTitle());
         this.setDescription(source.getDescription());

@@ -24,4 +24,10 @@ public class Users extends Auditable<String> {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
     private Set<Reservation> reservation;
+
+    public void mapFrom(Users source) {
+        this.setFirstName(source.getFirstName());
+        this.setLastName(source.getLastName());
+        this.setEmail(source.getEmail());
+    }
 }

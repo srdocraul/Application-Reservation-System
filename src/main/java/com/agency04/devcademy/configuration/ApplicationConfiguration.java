@@ -2,6 +2,9 @@ package com.agency04.devcademy.configuration;
 
 import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.service.AccommodationServiceImpl;
+import com.agency04.devcademy.service.LocationServiceImpl;
+import com.agency04.devcademy.service.ReservationServiceImpl;
+import com.agency04.devcademy.service.UsersServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +14,7 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:ara.properties")
 @PropertySource("classpath:ara.yml")
 @Configuration
-public class AccommodationConfiguration {
+public class ApplicationConfiguration {
     @Bean
     public Accommodation accommodation(@Value("${accommodation.owner.name}") String ownerName,
                                        @Value("${accommodation.owner.facebook}") String hasFacebook,
@@ -28,7 +31,22 @@ public class AccommodationConfiguration {
 
     @Primary
     @Bean
-    public AccommodationServiceImpl accommodationServiceImpl() {
+    public AccommodationServiceImpl accommodationService() {
         return new AccommodationServiceImpl();
+    }
+
+    @Bean
+    public LocationServiceImpl locationService() {
+        return new LocationServiceImpl();
+    }
+
+    @Bean
+    public ReservationServiceImpl reservationService() {
+        return new ReservationServiceImpl();
+    }
+
+    @Bean
+    public UsersServiceImpl usersService() {
+        return new UsersServiceImpl();
     }
 }

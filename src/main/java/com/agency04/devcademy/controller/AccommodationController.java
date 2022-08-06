@@ -21,23 +21,23 @@ public class AccommodationController {
     }
 
     @GetMapping("/accommodations/{id}")
-    public ResponseEntity<Object> getAccommodationById(@PathVariable(value = "id") long id) {
+    public ResponseEntity<Object> getAccommodationById(@PathVariable(value = "id") Long id) {
         return ResponseEntity.ok().body(accommodationServiceImpl.getAccommodationById(id));
     }
 
     @PostMapping("/accommodations")
-    public ResponseEntity<Accommodation> createAccommodation(Accommodation accommodation) {
+    public ResponseEntity<Accommodation> createAccommodation(@RequestBody Accommodation accommodation) {
         return ResponseEntity.ok().body(this.accommodationServiceImpl.createAccommodation(accommodation));
     }
 
     @PutMapping("/accommodations/{id}")
-    public ResponseEntity<Accommodation> updateAccommodation(@PathVariable long id, @RequestBody Accommodation accommodation) {
+    public ResponseEntity<Accommodation> updateAccommodation(@PathVariable Long id, @RequestBody Accommodation accommodation) {
         accommodation.setId(id);
         return ResponseEntity.ok().body(this.accommodationServiceImpl.updateAccommodation(accommodation));
     }
 
     @DeleteMapping("/accommodations/{id}")
-    public HttpStatus deleteAccommodation(@PathVariable long id) {
+    public HttpStatus deleteAccommodation(@PathVariable Long id) {
         this.accommodationServiceImpl.deleteAccommodation(id);
         return HttpStatus.OK;
     }

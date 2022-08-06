@@ -34,4 +34,12 @@ public class Reservation extends Auditable<String> {
     private Users users;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private ReservationHistory reservationHistory;
+
+    public void mapFrom(Reservation source) {
+        this.setType(source.getType());
+        this.setCheckIn(source.getCheckIn());
+        this.setCheckOut(source.getCheckOut());
+        this.setPersonCount(source.getPersonCount());
+        this.setSubmitted(source.getSubmitted());
+    }
 }
