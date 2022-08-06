@@ -38,7 +38,7 @@ public class ReservationController {
     }
 
     @DeleteMapping("/reservation/{id}")
-    public HttpStatus deleteLocation(@PathVariable Long id) {
+    public HttpStatus deleteReservation(@PathVariable Long id) {
         this.reservationService.deleteReservation(id);
         return HttpStatus.OK;
     }

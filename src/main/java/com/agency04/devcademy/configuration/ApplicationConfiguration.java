@@ -1,10 +1,7 @@
 package com.agency04.devcademy.configuration;
 
 import com.agency04.devcademy.model.Accommodation;
-import com.agency04.devcademy.service.AccommodationServiceImpl;
-import com.agency04.devcademy.service.LocationServiceImpl;
-import com.agency04.devcademy.service.ReservationServiceImpl;
-import com.agency04.devcademy.service.UsersServiceImpl;
+import com.agency04.devcademy.service.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -48,5 +45,10 @@ public class ApplicationConfiguration {
     @Bean
     public UsersServiceImpl usersService() {
         return new UsersServiceImpl();
+    }
+
+    @Bean
+    public ReservationHistoryServiceImpl reservationHistoryService() {
+        return new ReservationHistoryServiceImpl();
     }
 }

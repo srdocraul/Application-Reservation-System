@@ -24,4 +24,10 @@ public class ReservationHistory extends Auditable<String> {
 
     @OneToOne
     private Reservation reservation;
+
+    public void mapFrom(ReservationHistory source) {
+        this.setEntryTimestamp(source.getEntryTimestamp());
+        this.setFromType(source.getFromType());
+        this.setToType(source.getToType());
+    }
 }
