@@ -27,6 +27,9 @@ public class ReservationHistory {
     @OneToOne
     private Reservation reservation;
 
+    @Embedded
+    private Audit audit = new Audit();
+
     public void mapFrom(ReservationHistory source) {
         this.setEntryTimestamp(source.getEntryTimestamp());
         this.setFromType(source.getFromType());

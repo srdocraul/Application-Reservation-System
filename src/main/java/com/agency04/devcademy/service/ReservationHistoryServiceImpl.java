@@ -20,7 +20,8 @@ public class ReservationHistoryServiceImpl implements ReservationHistoryService 
 
     @Override
     public ReservationHistory updateReservationHistory(ReservationHistory reservationHistory) {
-        Optional<ReservationHistory> reservationHistoryDb = this.reservationHistoryRepository.findById(reservationHistory.getId());
+        Optional<ReservationHistory> reservationHistoryDb =
+                this.reservationHistoryRepository.findById(reservationHistory.getId());
         if (reservationHistoryDb.isPresent()) {
             ReservationHistory reservationHistoryUpdate = reservationHistoryDb.get();
             reservationHistoryUpdate.mapFrom(reservationHistory);
@@ -44,7 +45,8 @@ public class ReservationHistoryServiceImpl implements ReservationHistoryService 
 
     @Override
     public void deleteReservationHistory(Long id) {
-        ReservationHistory reservationHistory = reservationHistoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Reservation history not found by this id :: " + id));
+        ReservationHistory reservationHistory = reservationHistoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Reservation history not found by this id :: " + id));
         reservationHistoryRepository.delete(reservationHistory);
     }
 }

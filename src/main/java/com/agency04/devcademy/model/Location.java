@@ -23,6 +23,9 @@ public class Location {
     @OneToOne
     private Accommodation accommodation;
 
+    @Embedded
+    private Audit audit = new Audit();
+
     public void mapFrom(Location source) {
         this.setTitle(source.getTitle());
         this.setSubtitle(source.getSubtitle());

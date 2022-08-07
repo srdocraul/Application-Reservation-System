@@ -35,6 +35,9 @@ public class Reservation {
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private ReservationHistory reservationHistory;
 
+    @Embedded
+    private Audit audit = new Audit();
+
     public void mapFrom(Reservation source) {
         this.setType(source.getType());
         this.setCheckIn(source.getCheckIn());

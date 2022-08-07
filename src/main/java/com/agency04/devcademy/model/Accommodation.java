@@ -41,6 +41,9 @@ public class Accommodation {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accommodation")
     private Set<Reservation> reservation;
 
+    @Embedded
+    private Audit audit = new Audit();
+
     public void mapFrom(Accommodation source) {
         this.setTitle(source.getTitle());
         this.setSubtitle(source.getTitle());
