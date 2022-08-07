@@ -16,6 +16,7 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     @Override
     public List<Accommodation> getAllAccommodation() {
+        System.out.println("This are accommodations" + accommodationRepository.findAllCategorizationAndPersonCount() + "\n\r");
         return this.accommodationRepository.findAll();
     }
 
@@ -45,7 +46,8 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     @Override
     public void deleteAccommodation(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
-        Accommodation accommodation = accommodationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Accommodation not found by this id :: " + id));
+        Accommodation accommodation = accommodationRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Accommodation not found by this id :: " + id));
         accommodationRepository.delete(accommodation);
     }
 }
