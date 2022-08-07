@@ -52,8 +52,7 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public void deleteLocation(@PathVariable(value = "id") Long id) {
-        Location location = locationRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Location not found by this id :: " + id));
+        Location location = locationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Location not found by this id :: " + id));
         locationRepository.delete(location);
     }
 }

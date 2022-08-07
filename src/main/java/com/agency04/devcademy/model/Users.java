@@ -25,9 +25,6 @@ public class Users {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
     private Set<Reservation> reservation;
 
-    @Embedded
-    private Audit audit = new Audit();
-
     public void mapFrom(Users source) {
         this.setFirstName(source.getFirstName());
         this.setLastName(source.getLastName());

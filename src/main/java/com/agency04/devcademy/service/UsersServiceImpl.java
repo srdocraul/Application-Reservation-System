@@ -43,8 +43,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public void deleteUsers(Long id) {
-        Users users = usersRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found by this id :: " + id));
+        Users users = usersRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found by this id :: " + id));
         usersRepository.delete(users);
     }
 }

@@ -32,8 +32,7 @@ public class ReservationHistoryController {
     }
 
     @PutMapping("/reservation//history/{id}")
-    public ResponseEntity<ReservationHistory> updateReservationHistory(@PathVariable Long id,
-                                                                       @RequestBody ReservationHistory reservationHistory) {
+    public ResponseEntity<ReservationHistory> updateReservationHistory(@PathVariable Long id, @RequestBody ReservationHistory reservationHistory) {
         reservationHistory.setId(id);
         return ResponseEntity.ok().body(this.reservationHistoryService.updateReservationHistory(reservationHistory));
     }

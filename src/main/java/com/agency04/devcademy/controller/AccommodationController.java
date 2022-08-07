@@ -26,18 +26,14 @@ public class AccommodationController {
     }
 
     @PostMapping("/accommodations")
-    public ResponseEntity<Accommodation> createAccommodation(
-            @RequestBody Accommodation accommodation) {
-        return ResponseEntity.ok()
-                .body(this.accommodationServiceImpl.createAccommodation(accommodation));
+    public ResponseEntity<Accommodation> createAccommodation(@RequestBody Accommodation accommodation) {
+        return ResponseEntity.ok().body(this.accommodationServiceImpl.createAccommodation(accommodation));
     }
 
     @PutMapping("/accommodations/{id}")
-    public ResponseEntity<Accommodation> updateAccommodation(@PathVariable Long id, @RequestBody
-    Accommodation accommodation) {
+    public ResponseEntity<Accommodation> updateAccommodation(@PathVariable Long id, @RequestBody Accommodation accommodation) {
         accommodation.setId(id);
-        return ResponseEntity.ok()
-                .body(this.accommodationServiceImpl.updateAccommodation(accommodation));
+        return ResponseEntity.ok().body(this.accommodationServiceImpl.updateAccommodation(accommodation));
     }
 
     @DeleteMapping("/accommodations/{id}")
