@@ -16,7 +16,8 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     @Override
     public List<Accommodation> getAllAccommodation() {
-        System.out.println("This are accommodations" + accommodationRepository.findAllCategorizationAndPersonCount() + "\n\r");
+        System.out.println("[SHA-7 Query method result]" + accommodationRepository.findAllCategorizationAndPersonCount() + "\n" +
+                "\r");
         return this.accommodationRepository.findAll();
     }
 

@@ -16,28 +16,28 @@ public class LocationController {
     @Autowired
     private LocationServiceImpl locationServiceImpl;
 
-    @GetMapping("/location")
+    @GetMapping("/accommodations/location")
     public ResponseEntity<List<Location>> getAllLocation() {
         return ResponseEntity.ok().body(locationServiceImpl.getAllLocation());
     }
 
-    @GetMapping("/location/{id}")
+    @GetMapping("/accommodations/location/{id}")
     public ResponseEntity<Object> getLocationById(@PathVariable(value = "id") Long id) {
         return ResponseEntity.ok().body(locationServiceImpl.getLocationById(id));
     }
 
-    @PostMapping("/location")
+    @PostMapping("/accommodations/location")
     public ResponseEntity<Location> createLocation(@RequestBody Location location) {
         return ResponseEntity.ok().body(this.locationServiceImpl.createLocation(location));
     }
 
-    @PutMapping("/location/{id}")
+    @PutMapping("/accommodations/location/{id}")
     public ResponseEntity<Location> updateLocation(@PathVariable Long id, @RequestBody Location location) {
         location.setId(id);
         return ResponseEntity.ok().body(this.locationServiceImpl.updateLocation(location));
     }
 
-    @DeleteMapping("/location/{id}")
+    @DeleteMapping("/accommodations/location/{id}")
     public HttpStatus deleteLocation(@PathVariable Long id) {
         this.locationServiceImpl.deleteLocation(id);
         return HttpStatus.OK;
