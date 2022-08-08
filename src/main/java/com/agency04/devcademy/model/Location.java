@@ -3,20 +3,17 @@ package com.agency04.devcademy.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "Location")
 @Data
 @NoArgsConstructor
-public class Location {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    @Column(length = 100, name = "title")
-    private String title;
-    @Column(length = 150, name = "subtitle")
-    private String subtitle;
+public class Location extends SuperClass {
+
     @Column(length = 5, name = "postal_code")
     private Integer postalCode;
 

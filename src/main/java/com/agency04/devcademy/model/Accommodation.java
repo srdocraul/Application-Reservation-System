@@ -1,6 +1,5 @@
 package com.agency04.devcademy.model;
 
-import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,16 +10,7 @@ import java.util.Set;
 @Table(name = "accommodations")
 @Data
 @NoArgsConstructor
-public class Accommodation {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
-    private Long id;
-    @Column(length = 100)
-    private String title;
-    @Column(length = 200)
-    private String subtitle;
+public class Accommodation extends SuperClass {
     private String description;
     @Column(length = 6)
     private Integer categorization;
@@ -30,10 +20,10 @@ public class Accommodation {
     private String imageUrl;
     private Double price;
     private String ownerName;
-    private String linkForFacebook;
-    private String linkForInstagram;
     @Column(columnDefinition = "BOOLEAN DEFAULT true")
     private Boolean freeCancellation;
+    private String linkForFacebook;
+    private String linkForInstagram;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Location location;
