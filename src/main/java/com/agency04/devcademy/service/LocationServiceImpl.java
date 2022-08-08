@@ -3,12 +3,14 @@ package com.agency04.devcademy.service;
 import com.agency04.devcademy.exception.ResourceNotFoundException;
 import com.agency04.devcademy.model.Location;
 import com.agency04.devcademy.repository.LocationRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 public class LocationServiceImpl implements LocationService {
 
     @Autowired
@@ -18,7 +20,7 @@ public class LocationServiceImpl implements LocationService {
     public Location createLocation(Location location) {
         Optional<Location> locationOptional = locationRepository.findLocation(location);
         if (locationOptional.isPresent()) {
-            System.out.println("Record exists!");
+            log.debug("Record exists!");
             return locationOptional.get();
         } else
             locationRepository.save(location);
@@ -52,7 +54,8 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public void deleteLocation(@PathVariable(value = "id") Long id) {
-        Location location = locationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Location not found by this id :: " + id));
+        Location location = locationRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Location not found by this id :: " + id));
         locationRepository.delete(location);
     }
 }

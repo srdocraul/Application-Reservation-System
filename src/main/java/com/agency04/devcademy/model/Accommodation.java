@@ -35,7 +35,7 @@ public class Accommodation {
     @Column(columnDefinition = "BOOLEAN DEFAULT true")
     private Boolean freeCancellation;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private Location location;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accommodation")

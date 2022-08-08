@@ -2,6 +2,7 @@ package com.agency04.devcademy.controller;
 
 import com.agency04.devcademy.model.Reservation;
 import com.agency04.devcademy.service.ReservationServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@Slf4j
 public class ReservationController {
 
     @Autowired
@@ -18,6 +20,7 @@ public class ReservationController {
 
     @GetMapping("/reservation")
     public ResponseEntity<List<Reservation>> getAllReservation() {
+        log.debug("Get all reservations");
         return ResponseEntity.ok().body(reservationService.getAllReservation());
     }
 
