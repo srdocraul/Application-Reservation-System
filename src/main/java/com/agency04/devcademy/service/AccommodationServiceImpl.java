@@ -3,20 +3,21 @@ package com.agency04.devcademy.service;
 import com.agency04.devcademy.exception.ResourceNotFoundException;
 import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.repository.AccommodationRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
 
-
+@Slf4j
 public class AccommodationServiceImpl implements AccommodationService {
     @Autowired
     private AccommodationRepository accommodationRepository;
 
     @Override
     public List<Accommodation> getAllAccommodation() {
-        System.out.println("[SHA-7 Query method result]" + accommodationRepository.findAllCategorizationAndPersonCount() + "\n" +
+        log.debug("[SHA-7 Query method result]" + accommodationRepository.findAllCategorizationAndPersonCount() + "\n" +
                 "\r");
         return this.accommodationRepository.findAll();
     }

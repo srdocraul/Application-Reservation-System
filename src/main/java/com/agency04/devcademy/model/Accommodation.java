@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "accommodations")
+@Table(name = "accommodation")
 @Data
 @NoArgsConstructor
 public class Accommodation extends SuperClass {

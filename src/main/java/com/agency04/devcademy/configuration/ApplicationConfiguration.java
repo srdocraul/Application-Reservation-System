@@ -51,4 +51,8 @@ public class ApplicationConfiguration {
     public ReservationHistoryServiceImpl reservationHistoryService() {
         return new ReservationHistoryServiceImpl();
     }
+
+    @Bean RecommendationServiceImpl recommendationService() {
+        return new RecommendationServiceImpl();
+    }
 }
