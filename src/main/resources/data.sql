@@ -43,4 +43,7 @@ INSERT INTO reservation (id,type,check_in,check_out,person_count,submitted) VALU
 INSERT INTO reservation_history (id,entry_timestamp,from_type,to_type) VALUES (1,'2022-08-09 13:20:54', 'TEMPORARY', 'CANCELED');
 
 INSERT INTO location (id,title, subtitle, postal_code,accommodation_id) VALUES (1,'Kraljevica','Ul. Josipa Juraja
-Strossmayera',51262,1);
+Strossmayera 5',51262,1);
+
+INSERT INTO location (id,title, subtitle, postal_code,accommodation_id) VALUES (2,'Jadranovo','Perhati 22',51264,10);
+

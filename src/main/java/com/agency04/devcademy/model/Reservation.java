@@ -2,6 +2,7 @@ package com.agency04.devcademy.model;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +12,12 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @NoArgsConstructor
-public class Reservation extends SuperClass {
+public class Reservation {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
+    private Long id;
     @Enumerated(EnumType.STRING)
     private ReservationType type;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy'T'HH:mm:ss'Z'")
@@ -26,7 +32,7 @@ public class Reservation extends SuperClass {
     private Accommodation accommodation;
     @ManyToOne
     private Users users;
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservation")
     private ReservationHistory reservationHistory;
 
     public void mapFrom(Reservation source) {

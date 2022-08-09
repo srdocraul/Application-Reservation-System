@@ -10,7 +10,8 @@ import java.util.List;
 @Repository
 public interface AccommodationRepository extends JpaRepository<Accommodation, Long> {
     @Query(
-            value = "SELECT * FROM Accommodation acc WHERE acc.categorization = 3 AND acc.person_count >= 5",
+            value = "SELECT * FROM Accommodation acc WHERE acc.categorization = :categorization AND acc.person_count = " +
+                    ":personCount",
             nativeQuery = true)
-    List<Accommodation> findAllCategorizationAndPersonCount();
+    List<Accommodation> findAllCategorizationAndPersonCount(Integer categorization, Integer personCount);
 }

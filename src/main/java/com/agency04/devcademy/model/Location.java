@@ -1,12 +1,10 @@
 package com.agency04.devcademy.model;
 
+import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Location")
@@ -14,10 +12,15 @@ import javax.persistence.Table;
 @NoArgsConstructor
 public class Location extends SuperClass {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
+    private Long id;
+
     @Column(length = 5, name = "postal_code")
     private Integer postalCode;
 
-    @OneToOne
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "location")
     private Accommodation accommodation;
 
     public void mapFrom(Location source) {
