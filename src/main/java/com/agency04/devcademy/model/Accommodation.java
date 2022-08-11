@@ -1,6 +1,5 @@
 package com.agency04.devcademy.model;
 
-import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,8 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class Accommodation extends SuperClass {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String description;
     @Column(length = 6)
@@ -30,7 +28,8 @@ public class Accommodation extends SuperClass {
     private String linkForFacebook;
     private String linkForInstagram;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location location;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accommodation")

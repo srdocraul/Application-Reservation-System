@@ -2,7 +2,7 @@ package com.agency04.devcademy.controller;
 
 
 import com.agency04.devcademy.model.Users;
-import com.agency04.devcademy.service.UsersServiceImpl;
+import com.agency04.devcademy.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import java.util.List;
 public class UsersController {
 
     @Autowired
-    UsersServiceImpl usersService;
+    private UsersService usersService;
 
     @GetMapping("/users")
     public ResponseEntity<List<Users>> getAllUsers() {

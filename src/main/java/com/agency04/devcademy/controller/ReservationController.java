@@ -1,7 +1,7 @@
 package com.agency04.devcademy.controller;
 
 import com.agency04.devcademy.model.Reservation;
-import com.agency04.devcademy.service.ReservationServiceImpl;
+import com.agency04.devcademy.service.ReservationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +16,7 @@ import java.util.List;
 public class ReservationController {
 
     @Autowired
-    private ReservationServiceImpl reservationService;
+    private ReservationService reservationService;
 
     @GetMapping("/reservation")
     public ResponseEntity<List<Reservation>> getAllReservation() {

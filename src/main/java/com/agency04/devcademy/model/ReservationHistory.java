@@ -25,7 +25,6 @@ public class ReservationHistory {
     @Enumerated(EnumType.STRING)
     private ReservationType toType;
 
-    //TODO: Change relationship to OneToMany
     @ManyToOne
     private Reservation reservation;
 

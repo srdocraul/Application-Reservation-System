@@ -4,10 +4,12 @@ import com.agency04.devcademy.exception.ResourceNotFoundException;
 import com.agency04.devcademy.model.Users;
 import com.agency04.devcademy.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class UsersServiceImpl implements UsersService {
 
     @Autowired
@@ -43,7 +45,8 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public void deleteUsers(Long id) {
-        Users users = usersRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found by this id :: " + id));
+        Users users = usersRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found by this id :: " + id));
         usersRepository.delete(users);
     }
 }

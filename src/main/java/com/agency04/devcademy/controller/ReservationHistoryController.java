@@ -1,7 +1,7 @@
 package com.agency04.devcademy.controller;
 
 import com.agency04.devcademy.model.ReservationHistory;
-import com.agency04.devcademy.service.ReservationHistoryServiceImpl;
+import com.agency04.devcademy.service.ReservationHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import java.util.List;
 public class ReservationHistoryController {
 
     @Autowired
-    private ReservationHistoryServiceImpl reservationHistoryService;
+    private ReservationHistoryService reservationHistoryService;
 
     @GetMapping("/reservation/history")
     public ResponseEntity<List<ReservationHistory>> getAllReservationHistory() {
@@ -32,7 +32,8 @@ public class ReservationHistoryController {
     }
 
     @PutMapping("/reservation//history/{id}")
-    public ResponseEntity<ReservationHistory> updateReservationHistory(@PathVariable Long id, @RequestBody ReservationHistory reservationHistory) {
+    public ResponseEntity<ReservationHistory> updateReservationHistory(@PathVariable Long id,
+                                                                       @RequestBody ReservationHistory reservationHistory) {
         reservationHistory.setId(id);
         return ResponseEntity.ok().body(this.reservationHistoryService.updateReservationHistory(reservationHistory));
     }

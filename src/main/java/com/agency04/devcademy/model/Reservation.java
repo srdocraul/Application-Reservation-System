@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -33,7 +35,7 @@ public class Reservation {
     @ManyToOne
     private Users users;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservation")
-    private ReservationHistory reservationHistory;
+    private Set<ReservationHistory> reservationHistory = new HashSet<>();
 
     public void mapFrom(Reservation source) {
         this.setType(source.getType());
