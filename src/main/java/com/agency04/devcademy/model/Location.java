@@ -26,6 +26,9 @@ public class Location extends SuperClass {
     @JsonIgnore
     private List<Accommodation> accommodation = new ArrayList<>();
 
+    public Location(String title, String subtitile, Integer postalCode) {
+    }
+
     public void mapFrom(Location source) {
         this.setTitle(source.getTitle());
         this.setSubtitle(source.getSubtitle());
