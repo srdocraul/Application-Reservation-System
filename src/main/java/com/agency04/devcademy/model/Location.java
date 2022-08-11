@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +19,11 @@ public class Location extends SuperClass {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 5, name = "postal_code")
+    @Size(min = 1, max = 5)
     private Integer postalCode;
 
+    @OneToMany(mappedBy = "location")
     @JsonIgnore
-    @OneToMany(mappedBy = "location", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Accommodation> accommodation = new ArrayList<>();
 
     public void mapFrom(Location source) {

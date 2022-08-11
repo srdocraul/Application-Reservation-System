@@ -1,9 +1,11 @@
 package com.agency04.devcademy.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -15,7 +17,7 @@ public class Accommodation extends SuperClass {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String description;
-    @Column(length = 6)
+    @Size(min = 1, max = 5, message = "Category must be between 1 and 5 stars")
     private Integer categorization;
     @Enumerated(EnumType.STRING)
     private AccommodationType type;
@@ -30,6 +32,7 @@ public class Accommodation extends SuperClass {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", referencedColumnName = "id")
+    @JsonIgnore
     private Location location;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accommodation")

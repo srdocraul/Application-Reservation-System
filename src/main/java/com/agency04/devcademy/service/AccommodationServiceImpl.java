@@ -23,8 +23,6 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     @Override
     public List<Accommodation> getAllAccommodation() {
-        log.debug("[SHA-7 Query method result]" + accommodationRepository.findAllCategorizationAndPersonCount(3, 5) + "\n" +
-                "\r");
         return this.accommodationRepository.findAll();
     }
 

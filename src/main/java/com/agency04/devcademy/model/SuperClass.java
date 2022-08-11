@@ -3,16 +3,16 @@ package com.agency04.devcademy.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.Size;
 
 @MappedSuperclass
 @Data
 @NoArgsConstructor
 public class SuperClass {
 
-    @Column(length = 100)
+    @Size(min = 1, max = 100)
     private String title;
-    @Column(length = 200)
+    @Size(min = 1, max = 100)
     private String subtitle;
 }

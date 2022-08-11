@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -17,9 +18,9 @@ public class Users {
     @NotNull
     private Long id;
 
-    @Column(length = 200)
+    @Size(min = 1, max = 200)
     private String firstName;
-    @Column(length = 200)
+    @Size(min = 1, max = 200)
     private String lastName;
     private String email;
 
