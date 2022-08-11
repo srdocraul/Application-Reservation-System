@@ -14,12 +14,14 @@ import java.util.Optional;
 
 @Slf4j
 @Service
+
 public class AccommodationServiceImpl implements AccommodationService {
     @Autowired
     private AccommodationRepository accommodationRepository;
 
     @Autowired
     private LocationService locationService;
+
 
     @Override
     public List<Accommodation> getAllAccommodation() {

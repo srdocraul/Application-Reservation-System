@@ -2,8 +2,8 @@ package com.agency04.devcademy.service;
 
 import com.agency04.devcademy.exception.ResourceNotFoundException;
 import com.agency04.devcademy.model.Location;
-import com.agency04.devcademy.repository.AccommodationRepository;
 import com.agency04.devcademy.repository.LocationRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,13 +14,11 @@ import java.util.Optional;
 
 @Slf4j
 @Service
+@AllArgsConstructor
 public class LocationServiceImpl implements LocationService {
 
     @Autowired
     private LocationRepository locationRepository;
-
-    @Autowired
-    private AccommodationRepository accommodationRepository;
 
     @Override
     public Location createLocation(Location location) {
