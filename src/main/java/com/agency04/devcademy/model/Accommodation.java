@@ -12,7 +12,7 @@ import java.util.Set;
 @Table(name = "accommodation")
 @Data
 @NoArgsConstructor
-public class Accommodation extends SuperClass {
+public class Accommodation extends LocationTitleAndSubtitle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

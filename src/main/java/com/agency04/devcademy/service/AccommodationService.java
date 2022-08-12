@@ -17,5 +17,7 @@ public interface AccommodationService {
 
     List<Accommodation> findByLocation(Long locationId);
 
+    List<Accommodation> getAllAccommodationRecommendation();
+
     void deleteAccommodation(@PathVariable(value = "id") Long id);
 }

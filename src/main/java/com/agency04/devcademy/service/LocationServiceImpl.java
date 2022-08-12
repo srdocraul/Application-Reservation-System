@@ -22,7 +22,8 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public Location createLocation(Location location) {
-        Optional<Location> locationOptional = locationRepository.findLocation(location);
+        Optional<Location> locationOptional =
+                locationRepository.findByTitleAndPostalCode(location.getTitle(), location.getPostalCode());
         if (locationOptional.isPresent()) {
             log.debug("Record exists!");
             return locationOptional.get();

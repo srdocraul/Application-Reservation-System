@@ -1,7 +1,6 @@
 package com.agency04.devcademy.service;
 
 import com.agency04.devcademy.model.Location;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -14,5 +13,5 @@ public interface LocationService {
 
     Location getLocationById(Long id);
 
-    void deleteLocation(@PathVariable(value = "id") Long id);
+    void deleteLocation(Long id);
 }

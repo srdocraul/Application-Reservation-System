@@ -10,35 +10,35 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/reservations/history")
 public class ReservationHistoryController {
 
     @Autowired
     private ReservationHistoryService reservationHistoryService;
 
-    @GetMapping("/reservation/history")
+    @GetMapping
     public ResponseEntity<List<ReservationHistory>> getAllReservationHistory() {
         return ResponseEntity.ok().body(reservationHistoryService.getAllReservationHistory());
     }
 
-    @GetMapping("/reservation//history/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Object> getReservationHistoryById(@PathVariable(value = "id") Long id) {
         return ResponseEntity.ok().body(reservationHistoryService.getReservationHistoryById(id));
     }
 
-    @PostMapping("/reservation/history")
+    @PostMapping
     public ResponseEntity<ReservationHistory> createReservationHistory(@RequestBody ReservationHistory reservationHistory) {
         return ResponseEntity.ok().body(this.reservationHistoryService.createReservationHistory(reservationHistory));
     }
 
-    @PutMapping("/reservation//history/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ReservationHistory> updateReservationHistory(@PathVariable Long id,
                                                                        @RequestBody ReservationHistory reservationHistory) {
         reservationHistory.setId(id);
         return ResponseEntity.ok().body(this.reservationHistoryService.updateReservationHistory(reservationHistory));
     }
 
-    @DeleteMapping("/reservation//history/{id}")
+    @DeleteMapping("/{id}")
     public HttpStatus deleteReservationHistory(@PathVariable Long id) {
         this.reservationHistoryService.deleteReservationHistory(id);
         return HttpStatus.OK;

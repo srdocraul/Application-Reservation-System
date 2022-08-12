@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,6 +66,13 @@ public class AccommodationServiceImpl implements AccommodationService {
         if (accommodationDb.isPresent()) {
             return accommodationDb.get();
         } else throw new ResourceNotFoundException("Record not found with id: " + id);
+    }
+
+    @Override public List<Accommodation> getAllAccommodationRecommendation() {
+        List<Accommodation> shuffledList = new ArrayList<>();
+        shuffledList = accommodationRepository.findAll();
+        Collections.shuffle(shuffledList);
+        return shuffledList;
     }
 
     public List<Accommodation> findByLocation(Long locationId) {

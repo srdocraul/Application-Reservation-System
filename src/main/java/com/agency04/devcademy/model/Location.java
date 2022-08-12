@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name = "Location")
 @Data
 @NoArgsConstructor
-public class Location extends SuperClass {
+public class Location extends LocationTitleAndSubtitle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

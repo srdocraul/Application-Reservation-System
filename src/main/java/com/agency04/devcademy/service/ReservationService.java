@@ -1,7 +1,6 @@
 package com.agency04.devcademy.service;
 
 import com.agency04.devcademy.model.Reservation;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -14,5 +13,5 @@ public interface ReservationService {
 
     Reservation getReservationById(Long id);
 
-    void deleteReservation(@PathVariable(value = "id") Long id);
+    void deleteReservation(Long id);
 }
