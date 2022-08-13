@@ -13,7 +13,11 @@ public interface AccommodationService {
 
     List<Accommodation> getAllAccommodation();
 
-    Accommodation getAccommodationById(long id);
+    Accommodation getAccommodationById(Long id);
+
+    List<Accommodation> findByLocation(Long locationId);
+
+    List<Accommodation> getAllAccommodationRecommendation();
 
     void deleteAccommodation(@PathVariable(value = "id") Long id);
 }

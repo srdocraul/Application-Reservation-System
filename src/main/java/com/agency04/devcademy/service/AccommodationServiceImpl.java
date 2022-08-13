@@ -4,26 +4,33 @@ import com.agency04.devcademy.exception.ResourceNotFoundException;
 import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.model.Location;
 import com.agency04.devcademy.repository.AccommodationRepository;
-import com.agency04.devcademy.repository.LocationRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
+@Service
+
 public class AccommodationServiceImpl implements AccommodationService {
-    private final Location location = new Location();
     @Autowired
     private AccommodationRepository accommodationRepository;
+
     @Autowired
-    private LocationRepository locationRepository;
+    private LocationService locationService;
+
 
     @Override
     public List<Accommodation> getAllAccommodation() {
         return this.accommodationRepository.findAll();
     }
 
-    public Accommodation getAccommodationById(long id) {
+    public Accommodation getAccommodationById(Long id) {
         Optional<Accommodation> accommodationDb = this.accommodationRepository.findById(id);
         if (accommodationDb.isPresent()) {
             return accommodationDb.get();
@@ -32,13 +39,7 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     @Override
     public Accommodation createAccommodation(Accommodation accommodation) {
-        List<Location> locationOptional = locationRepository.findByNameAndPostalCode(location.getName(), location.getPostalCode());
-        if (locationOptional.isEmpty()) {
-            accommodationRepository.save(accommodation);
-        } else {
-            throw new ResourceNotFoundException("Record already exists : " + accommodation.getId());
-        }
-        return accommodation;
+        return accommodationRepository.save(accommodation);
     }
 
     @Override
@@ -55,7 +56,27 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     @Override
     public void deleteAccommodation(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
-        Accommodation accommodation = accommodationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + id));
+        Accommodation accommodation = accommodationRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Accommodation not found by this id :: " + id));
         accommodationRepository.delete(accommodation);
+    }
+
+    public Accommodation getAccommodationsLocationById(Long id) {
+        Optional<Accommodation> accommodationDb = this.accommodationRepository.findById(id);
+        if (accommodationDb.isPresent()) {
+            return accommodationDb.get();
+        } else throw new ResourceNotFoundException("Record not found with id: " + id);
+    }
+
+    @Override public List<Accommodation> getAllAccommodationRecommendation() {
+        List<Accommodation> shuffledList = new ArrayList<>();
+        shuffledList = accommodationRepository.findAll();
+        Collections.shuffle(shuffledList);
+        return shuffledList;
+    }
+
+    public List<Accommodation> findByLocation(Long locationId) {
+        Location location = locationService.getLocationById(locationId);
+        return accommodationRepository.findByLocation(location);
     }
 }
