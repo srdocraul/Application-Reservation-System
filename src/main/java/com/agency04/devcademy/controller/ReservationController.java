@@ -1,5 +1,6 @@
 package com.agency04.devcademy.controller;
 
+import com.agency04.devcademy.commands.ReservationCommand;
 import com.agency04.devcademy.model.Reservation;
 import com.agency04.devcademy.service.ReservationService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,22 +27,23 @@ public class ReservationController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getReservationById(@PathVariable(value = "id") Long id) {
-        return ResponseEntity.ok().body(reservationService.getReservationById(id));
+        return ResponseEntity.ok().body(reservationService.findCommandById(id));
     }
 
     @PostMapping
-    public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation) {
-        return ResponseEntity.ok().body(this.reservationService.createReservation(reservation));
+    public ResponseEntity<ReservationCommand> createReservationCommand(@RequestBody ReservationCommand reservationCommand) {
+        return ResponseEntity.ok().body(this.reservationService.createReservationCommand(reservationCommand));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Reservation> updateReservation(@PathVariable Long id, @RequestBody Reservation reservation) {
-        reservation.setId(id);
-        return ResponseEntity.ok().body(this.reservationService.updateReservation(reservation));
+    public ResponseEntity<ReservationCommand> updateReservation(@PathVariable Long id,
+                                                                @RequestBody ReservationCommand reservationCommand) {
+        reservationCommand.setId(id);
+        return ResponseEntity.ok().body(this.reservationService.createReservationCommand(reservationCommand));
     }
 
     @DeleteMapping("/{id}")
-    public HttpStatus deleteReservation(@PathVariable Long id) {
+    public HttpStatus deleteReservation(Long id) {
         this.reservationService.deleteReservation(id);
         return HttpStatus.OK;
     }

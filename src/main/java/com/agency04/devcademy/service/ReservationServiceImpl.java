@@ -1,34 +1,39 @@
 package com.agency04.devcademy.service;
 
+import com.agency04.devcademy.commands.ReservationCommand;
+import com.agency04.devcademy.converters.ReservationCommandToReservation;
+import com.agency04.devcademy.converters.ReservationToReservationCommand;
 import com.agency04.devcademy.exception.ResourceNotFoundException;
 import com.agency04.devcademy.model.Reservation;
 import com.agency04.devcademy.repository.ReservationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
 
-    @Autowired
-    private ReservationRepository reservationRepository;
+    private final ReservationRepository reservationRepository;
+    private final ReservationCommandToReservation reservationCommandToReservation;
+    private final ReservationToReservationCommand reservationToReservationCommand;
 
-    @Override
-    public Reservation createReservation(Reservation reservation) {
-        return reservationRepository.save(reservation);
+    public ReservationServiceImpl(ReservationRepository reservationRepository,
+                                  ReservationCommandToReservation reservationCommandToReservation,
+                                  ReservationToReservationCommand reservationToReservationCommand) {
+        this.reservationRepository = reservationRepository;
+        this.reservationCommandToReservation = reservationCommandToReservation;
+        this.reservationToReservationCommand = reservationToReservationCommand;
     }
 
     @Override
-    public Reservation updateReservation(Reservation reservation) {
-        Optional<Reservation> reservationDb = this.reservationRepository.findById(reservation.getId());
-        if (reservationDb.isPresent()) {
-            Reservation reservationUpdate = reservationDb.get();
-            reservationUpdate.mapFrom(reservation);
-            reservationRepository.save(reservationUpdate);
-            return reservationUpdate;
-        } else throw new ResourceNotFoundException("Record not found with id : " + reservation.getId());
+    @Transactional
+    public ReservationCommand createReservationCommand(ReservationCommand reservationCommand) {
+        Reservation detachedReservation = reservationCommandToReservation.convert(reservationCommand);
+
+        Reservation createReservation = reservationRepository.save(detachedReservation);
+        return reservationToReservationCommand.convert(createReservation);
     }
 
     @Override
@@ -36,13 +41,20 @@ public class ReservationServiceImpl implements ReservationService {
         return this.reservationRepository.findAll();
     }
 
-    @Override
-    public Reservation getReservationById(Long id) {
-        Optional<Reservation> reservationDb = this.reservationRepository.findById(id);
-        if (reservationDb.isPresent())
-            return reservationDb.get();
-        else throw new ResourceNotFoundException("Record not found with id: " + id);
+    @Override public Reservation findById(Long id) {
+        Optional<Reservation> reservationOptional = reservationRepository.findById(id);
+        if (!reservationOptional.isPresent()) {
+            throw new RuntimeException("Reservation not found!");
+        }
+        return reservationOptional.get();
     }
+
+    @Override
+    @Transactional
+    public ReservationCommand findCommandById(Long id) {
+        return reservationToReservationCommand.convert(findById(id));
+    }
+
 
     @Override
     public void deleteReservation(Long id) {
