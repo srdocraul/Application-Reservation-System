@@ -1,6 +1,7 @@
 package com.agency04.devcademy.controller;
 
 import com.agency04.devcademy.commands.ReservationCommand;
+import com.agency04.devcademy.exceptions.NotFoundException;
 import com.agency04.devcademy.model.Reservation;
 import com.agency04.devcademy.service.ReservationService;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -46,5 +48,18 @@ public class ReservationController {
     public HttpStatus deleteReservation(Long id) {
         this.reservationService.deleteReservation(id);
         return HttpStatus.OK;
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public ModelAndView handleNotFound(Exception exception) {
+
+        log.error("Handling not found exception");
+        log.error(exception.getMessage());
+
+        ModelAndView modelAndView = new ModelAndView();
+        
+        modelAndView.addObject("exception", exception);
+        return modelAndView;
     }
 }

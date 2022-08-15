@@ -44,7 +44,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Override public Reservation findById(Long id) {
         Optional<Reservation> reservationOptional = reservationRepository.findById(id);
         if (!reservationOptional.isPresent()) {
-            throw new NotFoundException("Reservation not found!");
+            throw new NotFoundException("Reservation not found! For id value: " + id);
         }
         return reservationOptional.get();
     }
