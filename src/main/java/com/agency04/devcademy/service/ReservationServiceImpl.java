@@ -3,7 +3,7 @@ package com.agency04.devcademy.service;
 import com.agency04.devcademy.commands.ReservationCommand;
 import com.agency04.devcademy.converters.ReservationCommandToReservation;
 import com.agency04.devcademy.converters.ReservationToReservationCommand;
-import com.agency04.devcademy.exception.ResourceNotFoundException;
+import com.agency04.devcademy.exceptions.NotFoundException;
 import com.agency04.devcademy.model.Reservation;
 import com.agency04.devcademy.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
@@ -44,7 +44,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Override public Reservation findById(Long id) {
         Optional<Reservation> reservationOptional = reservationRepository.findById(id);
         if (!reservationOptional.isPresent()) {
-            throw new RuntimeException("Reservation not found!");
+            throw new NotFoundException("Reservation not found!");
         }
         return reservationOptional.get();
     }
@@ -59,7 +59,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public void deleteReservation(Long id) {
         Reservation reservation = reservationRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Reservation not found by this id :: " + id));
+                .orElseThrow(() -> new NotFoundException("Reservation not found by this id :: " + id));
         reservationRepository.delete(reservation);
     }
 }

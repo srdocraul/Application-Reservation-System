@@ -1,6 +1,6 @@
 package com.agency04.devcademy.service;
 
-import com.agency04.devcademy.exception.ResourceNotFoundException;
+import com.agency04.devcademy.exceptions.NotFoundException;
 import com.agency04.devcademy.model.Location;
 import com.agency04.devcademy.repository.LocationRepository;
 import lombok.AllArgsConstructor;
@@ -40,7 +40,7 @@ public class LocationServiceImpl implements LocationService {
             locationUpdate.mapFrom(location);
             locationRepository.save(locationUpdate);
             return locationUpdate;
-        } else throw new ResourceNotFoundException("Record not found with id : " + location.getId());
+        } else throw new NotFoundException("Record not found with id : " + location.getId());
 
     }
 
@@ -54,13 +54,13 @@ public class LocationServiceImpl implements LocationService {
         Optional<Location> locationDb = this.locationRepository.findById(id);
         if (locationDb.isPresent())
             return locationDb.get();
-        else throw new ResourceNotFoundException("Record not found with id: " + id);
+        else throw new NotFoundException("Record not found with id: " + id);
     }
 
     @Override
     public void deleteLocation(@PathVariable(value = "id") Long id) {
         Location location = locationRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Location not found by this id :: " + id));
+                .orElseThrow(() -> new NotFoundException("Location not found by this id :: " + id));
         locationRepository.delete(location);
     }
 }

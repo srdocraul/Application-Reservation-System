@@ -1,6 +1,6 @@
 package com.agency04.devcademy.service;
 
-import com.agency04.devcademy.exception.ResourceNotFoundException;
+import com.agency04.devcademy.exceptions.NotFoundException;
 import com.agency04.devcademy.model.Users;
 import com.agency04.devcademy.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class UsersServiceImpl implements UsersService {
             Users usersUpdate = usersDb.get();
             usersUpdate.mapFrom(users);
             return usersUpdate;
-        } else throw new ResourceNotFoundException("Record not found with id : " + users.getId());
+        } else throw new NotFoundException("Record not found with id : " + users.getId());
     }
 
     @Override
@@ -40,13 +40,13 @@ public class UsersServiceImpl implements UsersService {
         Optional<Users> usersDb = this.usersRepository.findById(id);
         if (usersDb.isPresent())
             return usersDb.get();
-        else throw new ResourceNotFoundException("Record not found with id: " + id);
+        else throw new NotFoundException("Record not found with id: " + id);
     }
 
     @Override
     public void deleteUsers(Long id) {
         Users users = usersRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found by this id :: " + id));
+                .orElseThrow(() -> new NotFoundException("User not found by this id :: " + id));
         usersRepository.delete(users);
     }
 }
