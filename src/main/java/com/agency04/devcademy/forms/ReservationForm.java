@@ -1,4 +1,4 @@
-package com.agency04.devcademy.commands;
+package com.agency04.devcademy.forms;
 
 import com.agency04.devcademy.model.ReservationType;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @Validated
-public class ReservationCommand {
+public class ReservationForm {
     private Long id;
 
     @NotBlank

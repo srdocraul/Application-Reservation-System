@@ -1,9 +1,9 @@
 package com.agency04.devcademy.service;
 
-import com.agency04.devcademy.commands.ReservationCommand;
 import com.agency04.devcademy.converters.ReservationCommandToReservation;
 import com.agency04.devcademy.converters.ReservationToReservationCommand;
 import com.agency04.devcademy.exceptions.NotFoundException;
+import com.agency04.devcademy.forms.ReservationForm;
 import com.agency04.devcademy.model.Reservation;
 import com.agency04.devcademy.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
@@ -29,8 +29,8 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     @Transactional
-    public ReservationCommand createReservationCommand(ReservationCommand reservationCommand) {
-        Reservation detachedReservation = reservationCommandToReservation.convert(reservationCommand);
+    public ReservationForm createReservationCommand(ReservationForm reservationForm) {
+        Reservation detachedReservation = reservationCommandToReservation.convert(reservationForm);
 
         Reservation createReservation = reservationRepository.save(detachedReservation);
         return reservationToReservationCommand.convert(createReservation);
@@ -51,7 +51,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     @Transactional
-    public ReservationCommand findCommandById(Long id) {
+    public ReservationForm findCommandById(Long id) {
         return reservationToReservationCommand.convert(findById(id));
     }
 

@@ -1,6 +1,6 @@
 package com.agency04.devcademy.converters;
 
-import com.agency04.devcademy.commands.ReservationCommand;
+import com.agency04.devcademy.forms.ReservationForm;
 import com.agency04.devcademy.model.Reservation;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
@@ -10,11 +10,11 @@ import lombok.Synchronized;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ReservationCommandToReservation implements Converter<ReservationCommand, Reservation> {
+public class ReservationCommandToReservation implements Converter<ReservationForm, Reservation> {
 
     @Synchronized
     @Nullable
-    @Override public Reservation convert(ReservationCommand source) {
+    @Override public Reservation convert(ReservationForm source) {
         if (source == null) {
             return null;
         }

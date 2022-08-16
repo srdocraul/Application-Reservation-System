@@ -1,7 +1,7 @@
 package com.agency04.devcademy.controller;
 
-import com.agency04.devcademy.commands.ReservationCommand;
 import com.agency04.devcademy.exceptions.ReservationNotPossibleException;
+import com.agency04.devcademy.forms.ReservationForm;
 import com.agency04.devcademy.model.Reservation;
 import com.agency04.devcademy.service.ReservationService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,10 +34,10 @@ public class ReservationController {
     }
 
     @PostMapping
-    public ResponseEntity<ReservationCommand> createReservationCommand(
-            @RequestBody @Valid ReservationCommand reservationCommand) {
+    public ResponseEntity<ReservationForm> createReservationCommand(
+            @RequestBody @Valid ReservationForm reservationForm) {
         try {
-            return ResponseEntity.ok().body(this.reservationService.createReservationCommand(reservationCommand));
+            return ResponseEntity.ok().body(this.reservationService.createReservationCommand(reservationForm));
         } catch (ReservationNotPossibleException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Check your input and try again!", ex);
         }
@@ -45,10 +45,10 @@ public class ReservationController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ReservationCommand> updateReservation(@PathVariable Long id,
-                                                                @RequestBody ReservationCommand reservationCommand) {
-        reservationCommand.setId(id);
-        return ResponseEntity.ok().body(this.reservationService.createReservationCommand(reservationCommand));
+    public ResponseEntity<ReservationForm> updateReservation(@PathVariable Long id,
+                                                             @RequestBody ReservationForm reservationForm) {
+        reservationForm.setId(id);
+        return ResponseEntity.ok().body(this.reservationService.createReservationCommand(reservationForm));
     }
 
     @DeleteMapping("/{id}")
