@@ -22,7 +22,8 @@ public class Accommodation extends LocationTitleAndSubtitle {
     @Enumerated(EnumType.STRING)
     private AccommodationType type;
     private Integer personCount;
-    private String imageUrl;
+    @Lob
+    private Byte[] image;
     private Double price;
     private String ownerName;
     @Column(columnDefinition = "BOOLEAN DEFAULT true")
@@ -45,7 +46,7 @@ public class Accommodation extends LocationTitleAndSubtitle {
         this.setCategorization(source.getCategorization());
         this.setType(source.getType());
         this.setPersonCount(source.getPersonCount());
-        this.setImageUrl(source.getImageUrl());
+        this.setImage(source.getImage());
         this.setPrice(source.getPrice());
         this.setFreeCancellation(source.getFreeCancellation());
     }

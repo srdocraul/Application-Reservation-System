@@ -8,7 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -78,5 +81,27 @@ public class AccommodationServiceImpl implements AccommodationService {
     public List<Accommodation> findByLocation(Long locationId) {
         Location location = locationService.getLocationById(locationId);
         return accommodationRepository.findByLocation(location);
+    }
+
+    @Override
+    @Transactional
+    public void saveImageFile(MultipartFile file, Long id) {
+        try {
+            Accommodation accommodation = accommodationRepository.findById(id).get();
+
+            Byte[] bytesObjects = new Byte[file.getBytes().length];
+
+            int i = 0;
+
+            for (byte b : file.getBytes())
+                bytesObjects[i++] = b;
+
+            accommodation.setImage(bytesObjects);
+
+        } catch (IOException e) {
+            log.error("Error occurred! ", e);
+
+            e.printStackTrace();
+        }
     }
 }

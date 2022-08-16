@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -54,4 +55,18 @@ public class AccommodationController {
     public ResponseEntity<Object> getAllAccommodationRecommendation() {
         return ResponseEntity.ok().body(accommodationService.getAllAccommodationRecommendation());
     }
+
+    //Image
+    @GetMapping("/{id}/image")
+    public HttpStatus getImageFile(MultipartFile file, @PathVariable Long id) {
+        this.accommodationService.saveImageFile(file, id);
+        return HttpStatus.OK;
+    }
+
+    @PostMapping("/{id}/image")
+    public HttpStatus createImageFile(MultipartFile file, @PathVariable Long id) {
+        this.accommodationService.saveImageFile(file, id);
+        return HttpStatus.OK;
+    }
+
 }
