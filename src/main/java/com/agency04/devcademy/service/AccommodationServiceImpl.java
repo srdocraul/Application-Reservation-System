@@ -1,6 +1,6 @@
 package com.agency04.devcademy.service;
 
-import com.agency04.devcademy.exceptions.NotFoundException;
+import com.agency04.devcademy.exceptions.ApiRequestException;
 import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.model.Location;
 import com.agency04.devcademy.repository.AccommodationRepository;
@@ -37,7 +37,7 @@ public class AccommodationServiceImpl implements AccommodationService {
         Optional<Accommodation> accommodationDb = this.accommodationRepository.findById(id);
         if (accommodationDb.isPresent()) {
             return accommodationDb.get();
-        } else throw new NotFoundException("Record not found with id: " + id);
+        } else throw new ApiRequestException("Record not found with id: " + id);
     }
 
     @Override
@@ -54,13 +54,13 @@ public class AccommodationServiceImpl implements AccommodationService {
             accommodationUpdate.mapFrom(accommodation);
             accommodationRepository.save(accommodationUpdate);
             return accommodationUpdate;
-        } else throw new NotFoundException("Record not found with id : " + accommodation.getId());
+        } else throw new ApiRequestException("Record not found with id : " + accommodation.getId());
     }
 
     @Override
-    public void deleteAccommodation(@PathVariable(value = "id") Long id) throws NotFoundException {
+    public void deleteAccommodation(@PathVariable(value = "id") Long id) throws ApiRequestException {
         Accommodation accommodation = accommodationRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Accommodation not found by this id :: " + id));
+                .orElseThrow(() -> new ApiRequestException("Accommodation not found by this id :: " + id));
         accommodationRepository.delete(accommodation);
     }
 
@@ -68,7 +68,7 @@ public class AccommodationServiceImpl implements AccommodationService {
         Optional<Accommodation> accommodationDb = this.accommodationRepository.findById(id);
         if (accommodationDb.isPresent()) {
             return accommodationDb.get();
-        } else throw new NotFoundException("Record not found with id: " + id);
+        } else throw new ApiRequestException("Record not found with id: " + id);
     }
 
     @Override public List<Accommodation> getAllAccommodationRecommendation() {

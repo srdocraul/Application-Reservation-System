@@ -10,7 +10,7 @@ import lombok.Synchronized;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ReservationToReservationCommand implements Converter<Reservation, ReservationForm> {
+public class ReservationToReservationForm implements Converter<Reservation, ReservationForm> {
 
     @Synchronized
     @Nullable

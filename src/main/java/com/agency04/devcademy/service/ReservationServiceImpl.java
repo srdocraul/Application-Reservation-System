@@ -1,8 +1,8 @@
 package com.agency04.devcademy.service;
 
-import com.agency04.devcademy.converters.ReservationCommandToReservation;
-import com.agency04.devcademy.converters.ReservationToReservationCommand;
-import com.agency04.devcademy.exceptions.NotFoundException;
+import com.agency04.devcademy.converters.ReservationFormToReservation;
+import com.agency04.devcademy.converters.ReservationToReservationForm;
+import com.agency04.devcademy.exceptions.ApiRequestException;
 import com.agency04.devcademy.forms.ReservationForm;
 import com.agency04.devcademy.model.Reservation;
 import com.agency04.devcademy.repository.ReservationRepository;
@@ -16,24 +16,25 @@ import java.util.Optional;
 public class ReservationServiceImpl implements ReservationService {
 
     private final ReservationRepository reservationRepository;
-    private final ReservationCommandToReservation reservationCommandToReservation;
-    private final ReservationToReservationCommand reservationToReservationCommand;
+    private final ReservationFormToReservation reservationFormToReservation;
+    private final ReservationToReservationForm reservationToReservationForm;
 
     public ReservationServiceImpl(ReservationRepository reservationRepository,
-                                  ReservationCommandToReservation reservationCommandToReservation,
-                                  ReservationToReservationCommand reservationToReservationCommand) {
+                                  ReservationFormToReservation reservationFormToReservation,
+                                  ReservationToReservationForm reservationToReservationForm) {
         this.reservationRepository = reservationRepository;
-        this.reservationCommandToReservation = reservationCommandToReservation;
-        this.reservationToReservationCommand = reservationToReservationCommand;
+        this.reservationFormToReservation = reservationFormToReservation;
+        this.reservationToReservationForm = reservationToReservationForm;
     }
 
     @Override
     @Transactional
     public ReservationForm createReservationCommand(ReservationForm reservationForm) {
-        Reservation detachedReservation = reservationCommandToReservation.convert(reservationForm);
 
+        Reservation detachedReservation = reservationFormToReservation.convert(reservationForm);
+        assert detachedReservation != null;
         Reservation createReservation = reservationRepository.save(detachedReservation);
-        return reservationToReservationCommand.convert(createReservation);
+        return reservationToReservationForm.convert(createReservation);
     }
 
     @Override
@@ -43,8 +44,8 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override public Reservation findById(Long id) {
         Optional<Reservation> reservationOptional = reservationRepository.findById(id);
-        if (!reservationOptional.isPresent()) {
-            throw new NotFoundException("Reservation not found! For id value: " + id);
+        if (reservationOptional.isEmpty()) {
+            throw new ApiRequestException("Reservation not found! For id value: " + id);
         }
         return reservationOptional.get();
     }
@@ -52,14 +53,14 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     @Transactional
     public ReservationForm findCommandById(Long id) {
-        return reservationToReservationCommand.convert(findById(id));
+        return reservationToReservationForm.convert(findById(id));
     }
 
 
     @Override
     public void deleteReservation(Long id) {
         Reservation reservation = reservationRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Reservation not found by this id :: " + id));
+                .orElseThrow(() -> new ApiRequestException("Reservation not found by this id :: " + id));
         reservationRepository.delete(reservation);
     }
 }

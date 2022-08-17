@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +18,7 @@ import java.util.Set;
 public class Reservation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Enumerated(EnumType.STRING)
     private ReservationType type;
@@ -28,10 +26,8 @@ public class Reservation {
     private LocalDateTime checkIn;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy'T'HH:mm:ss'Z'")
     private LocalDateTime checkOut;
-    @NotNull
     private Integer personCount;
     @Column(columnDefinition = "BOOLEAN DEFAULT true")
-    @NotEmpty
     private Boolean submitted;
 
     @ManyToOne

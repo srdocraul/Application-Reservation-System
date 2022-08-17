@@ -9,9 +9,9 @@ import org.springframework.validation.annotation.Validated;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Data
@@ -20,24 +20,24 @@ import java.time.LocalDateTime;
 public class ReservationForm {
     private Long id;
 
-    @NotBlank
     @NotNull
     @Enumerated(EnumType.STRING)
     private ReservationType type;
 
-    @NotBlank
+    @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy'T'HH:mm:ss'Z'")
     private LocalDateTime checkIn;
 
-    @NotBlank
+    @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy'T'HH:mm:ss'Z'")
     private LocalDateTime checkOut;
 
-    @Size(min = 1, max = 500)
+    @Min(value = 1)
+    @Max(value = 500)
     @NotNull
     private Integer personCount;
 
-    @NotBlank
+    @NotNull
     @Column(columnDefinition = "BOOLEAN DEFAULT true")
     private Boolean submitted;
 }
