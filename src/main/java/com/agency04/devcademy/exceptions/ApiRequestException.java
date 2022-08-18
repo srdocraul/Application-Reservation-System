@@ -1,4 +1,4 @@
-package com.agency04.devcademy.forms.exceptions;
+package com.agency04.devcademy.exceptions;
 
 public class ApiRequestException extends RuntimeException {
 
