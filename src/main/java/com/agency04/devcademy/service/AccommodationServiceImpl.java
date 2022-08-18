@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,7 +18,6 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-
 public class AccommodationServiceImpl implements AccommodationService {
     @Autowired
     private AccommodationRepository accommodationRepository;
@@ -84,7 +82,6 @@ public class AccommodationServiceImpl implements AccommodationService {
     }
 
     @Override
-    @Transactional
     public void saveImageFile(MultipartFile file, Long id) {
         try {
             Accommodation accommodation = accommodationRepository.findById(id).get();
@@ -97,10 +94,10 @@ public class AccommodationServiceImpl implements AccommodationService {
                 bytesObjects[i++] = b;
 
             accommodation.setImage(bytesObjects);
+            accommodationRepository.save(accommodation);
 
         } catch (IOException e) {
             log.error("Error occurred! ", e);
-
             e.printStackTrace();
         }
     }

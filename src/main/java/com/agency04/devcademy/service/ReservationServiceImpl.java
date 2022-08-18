@@ -8,11 +8,11 @@ import com.agency04.devcademy.model.Reservation;
 import com.agency04.devcademy.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@Service public class ReservationServiceImpl implements ReservationService {
+@Service
+public class ReservationServiceImpl implements ReservationService {
 
     private final ReservationRepository reservationRepository;
     private final ReservationFormToReservation reservationFormToReservation;
@@ -26,7 +26,8 @@ import java.util.Optional;
         this.reservationToReservationForm = reservationToReservationForm;
     }
 
-    @Override @Transactional public ReservationForm createReservationCommand(ReservationForm reservationForm) {
+    @Override
+    public ReservationForm createReservationCommand(ReservationForm reservationForm) {
 
         Reservation detachedReservation = reservationFormToReservation.convert(reservationForm);
         assert detachedReservation != null;
@@ -34,11 +35,13 @@ import java.util.Optional;
         return reservationToReservationForm.convert(createReservation);
     }
 
-    @Override public List<Reservation> getAllReservation() {
+    @Override
+    public List<Reservation> getAllReservation() {
         return this.reservationRepository.findAll();
     }
 
-    @Override public Reservation findById(Long id) {
+    @Override
+    public Reservation findById(Long id) {
         Optional<Reservation> reservationOptional = reservationRepository.findById(id);
         if (reservationOptional.isEmpty()) {
             throw new ApiRequestException("Reservation not found! For id value: " + id);
@@ -46,12 +49,13 @@ import java.util.Optional;
         return reservationOptional.get();
     }
 
-    @Override @Transactional public ReservationForm findCommandById(Long id) {
+    @Override
+    public ReservationForm findCommandById(Long id) {
         return reservationToReservationForm.convert(findById(id));
     }
 
-
-    @Override public void deleteReservation(Long id) {
+    @Override
+    public void deleteReservation(Long id) {
         Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new ApiRequestException("Reservation not found by this id :: " + id));
         reservationRepository.delete(reservation);

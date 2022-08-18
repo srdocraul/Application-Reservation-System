@@ -6,11 +6,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
-@PropertySource("classpath:ara.properties") @PropertySource("classpath:ara.yml") @Configuration
+@PropertySource("classpath:ara.properties")
+@PropertySource("classpath:ara.yml")
+@Configuration
 public class ApplicationConfiguration {
-    @Bean public Accommodation accommodation(@Value("${accommodation.owner.name}") String ownerName,
-                                             @Value("${accommodation.owner.facebook}") String hasFacebook,
-                                             @Value("${accommodation.owner.instagram}") String hasInstagram) {
+    @Bean
+    public Accommodation accommodation(@Value("${accommodation.owner.name}") String ownerName,
+                                       @Value("${accommodation.owner.facebook}") String hasFacebook,
+                                       @Value("${accommodation.owner.instagram}") String hasInstagram) {
         Accommodation accommodation = new Accommodation();
         accommodation.setOwnerName(ownerName);
         accommodation.setLinkForFacebook(hasFacebook);

@@ -14,16 +14,24 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-@Data @NoArgsConstructor @Validated public class ReservationForm {
+@Data
+@NoArgsConstructor
+@Validated
+public class ReservationForm {
     private Long id;
 
-    @NotNull @Enumerated(EnumType.STRING) private ReservationType type;
+    @NotNull @Enumerated(EnumType.STRING)
+    private ReservationType type;
 
-    @NotNull @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy'T'HH:mm:ss'Z'") private LocalDateTime checkIn;
+    @NotNull @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy'T'HH:mm:ss'Z'")
+    private LocalDateTime checkIn;
 
-    @NotNull @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy'T'HH:mm:ss'Z'") private LocalDateTime checkOut;
+    @NotNull @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy'T'HH:mm:ss'Z'")
+    private LocalDateTime checkOut;
 
-    @Min(value = 1) @Max(value = 500) @NotNull private Integer personCount;
+    @Min(value = 1) @Max(value = 500) @NotNull
+    private Integer personCount;
 
-    @NotNull @Column(columnDefinition = "BOOLEAN DEFAULT true") private Boolean submitted;
+    @NotNull @Column(columnDefinition = "BOOLEAN DEFAULT true")
+    private Boolean submitted;
 }

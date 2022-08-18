@@ -20,9 +20,12 @@ import java.util.Set;
     private Integer personCount;
     @Column(columnDefinition = "BOOLEAN DEFAULT true") private Boolean submitted;
 
-    @ManyToOne private Accommodation accommodation;
-    @ManyToOne private Users users;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservation") private Set<ReservationHistory> reservationHistory =
+    @ManyToOne
+    private Accommodation accommodation;
+    @ManyToOne
+    private Users users;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservation")
+    private Set<ReservationHistory> reservationHistory =
             new HashSet<>();
 
     public void mapFrom(Reservation source) {

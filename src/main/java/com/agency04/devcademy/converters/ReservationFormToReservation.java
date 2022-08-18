@@ -9,9 +9,13 @@ import io.micrometer.core.lang.Nullable;
 import lombok.Synchronized;
 import org.springframework.stereotype.Component;
 
-@Component public class ReservationFormToReservation implements Converter<ReservationForm, Reservation> {
+@Component
+public class ReservationFormToReservation implements Converter<ReservationForm, Reservation> {
 
-    @Synchronized @Nullable @Override public Reservation convert(ReservationForm source) {
+    @Synchronized
+    @Nullable
+    @Override
+    public Reservation convert(ReservationForm source) {
         if (source == null) {
             return null;
         }
@@ -26,11 +30,13 @@ import org.springframework.stereotype.Component;
         return reservation;
     }
 
-    @Override public JavaType getInputType(TypeFactory typeFactory) {
+    @Override
+    public JavaType getInputType(TypeFactory typeFactory) {
         return null;
     }
 
-    @Override public JavaType getOutputType(TypeFactory typeFactory) {
+    @Override
+    public JavaType getOutputType(TypeFactory typeFactory) {
         return null;
     }
 }

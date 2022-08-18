@@ -11,13 +11,16 @@ import java.util.Optional;
 
 @Service public class UsersServiceImpl implements UsersService {
 
-    @Autowired UsersRepository usersRepository;
+    @Autowired
+    UsersRepository usersRepository;
 
-    @Override public Users createUsers(Users users) {
+    @Override
+    public Users createUsers(Users users) {
         return usersRepository.save(users);
     }
 
-    @Override public Users updateUsers(Users users) {
+    @Override
+    public Users updateUsers(Users users) {
         Optional<Users> usersDb = this.usersRepository.findById(users.getId());
         if (usersDb.isPresent()) {
             Users usersUpdate = usersDb.get();
@@ -26,17 +29,20 @@ import java.util.Optional;
         } else throw new ApiRequestException("Record not found with id : " + users.getId());
     }
 
-    @Override public List<Users> getAllUsers() {
+    @Override
+    public List<Users> getAllUsers() {
         return this.usersRepository.findAll();
     }
 
-    @Override public Users getUsersById(Long id) {
+    @Override
+    public Users getUsersById(Long id) {
         Optional<Users> usersDb = this.usersRepository.findById(id);
         if (usersDb.isPresent()) return usersDb.get();
         else throw new ApiRequestException("Record not found with id: " + id);
     }
 
-    @Override public void deleteUsers(Long id) {
+    @Override
+    public void deleteUsers(Long id) {
         Users users =
                 usersRepository.findById(id).orElseThrow(() -> new ApiRequestException("User not found by this id :: " + id));
         usersRepository.delete(users);
