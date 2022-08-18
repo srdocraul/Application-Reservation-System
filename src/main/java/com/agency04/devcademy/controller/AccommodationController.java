@@ -2,15 +2,18 @@ package com.agency04.devcademy.controller;
 
 import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.service.AccommodationService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/accommodation")
+@Slf4j
 public class AccommodationController {
     @Autowired
     private AccommodationService accommodationService;
@@ -21,8 +24,8 @@ public class AccommodationController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getAccommodationById(@PathVariable(value = "id") Long id) {
-        return ResponseEntity.ok().body(accommodationService.getAccommodationById(id));
+    public ResponseEntity<Object> getAccommodationById(@PathVariable(value = "id") String id) {
+        return ResponseEntity.ok().body(accommodationService.getAccommodationById(Long.valueOf(id)));
     }
 
     //Find by location id
@@ -52,4 +55,18 @@ public class AccommodationController {
     public ResponseEntity<Object> getAllAccommodationRecommendation() {
         return ResponseEntity.ok().body(accommodationService.getAllAccommodationRecommendation());
     }
+
+    //Image
+    @GetMapping("/{id}/image")
+    public HttpStatus getImageFile(MultipartFile file, @PathVariable Long id) {
+        this.accommodationService.saveImageFile(file, id);
+        return HttpStatus.OK;
+    }
+
+    @PostMapping("/{id}/image")
+    public HttpStatus createImageFile(MultipartFile file, @PathVariable Long id) {
+        this.accommodationService.saveImageFile(file, id);
+        return HttpStatus.OK;
+    }
+
 }

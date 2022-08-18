@@ -2,6 +2,7 @@ package com.agency04.devcademy.controller;
 
 import com.agency04.devcademy.model.Location;
 import com.agency04.devcademy.service.LocationService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/accommodation/location")
+@Slf4j
 public class LocationController {
 
     @Autowired
@@ -22,8 +24,8 @@ public class LocationController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getLocationById(@PathVariable(value = "id") Long id) {
-        return ResponseEntity.ok().body(locationService.getLocationById(id));
+    public ResponseEntity<Object> getLocationById(@PathVariable(value = "id") String id) {
+        return ResponseEntity.ok().body(locationService.getLocationById(Long.valueOf(id)));
     }
 
     @PostMapping

@@ -1,6 +1,6 @@
 package com.agency04.devcademy.service;
 
-import com.agency04.devcademy.exception.ResourceNotFoundException;
+import com.agency04.devcademy.exceptions.ApiRequestException;
 import com.agency04.devcademy.model.ReservationHistory;
 import com.agency04.devcademy.repository.ReservationHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class ReservationHistoryServiceImpl implements ReservationHistoryService {
+@Service public class ReservationHistoryServiceImpl implements ReservationHistoryService {
 
     @Autowired
     private ReservationHistoryRepository reservationHistoryRepository;
@@ -28,7 +27,7 @@ public class ReservationHistoryServiceImpl implements ReservationHistoryService 
             ReservationHistory reservationHistoryUpdate = reservationHistoryDb.get();
             reservationHistoryUpdate.mapFrom(reservationHistory);
             return reservationHistoryUpdate;
-        } else throw new ResourceNotFoundException("Record not found with id : " + reservationHistory.getId());
+        } else throw new ApiRequestException("Record not found with id : " + reservationHistory.getId());
 
     }
 
@@ -40,15 +39,14 @@ public class ReservationHistoryServiceImpl implements ReservationHistoryService 
     @Override
     public ReservationHistory getReservationHistoryById(Long id) {
         Optional<ReservationHistory> reservationHistoryDb = this.reservationHistoryRepository.findById(id);
-        if (reservationHistoryDb.isPresent())
-            return reservationHistoryDb.get();
-        else throw new ResourceNotFoundException("Record not found with id: " + id);
+        if (reservationHistoryDb.isPresent()) return reservationHistoryDb.get();
+        else throw new ApiRequestException("Record not found with id: " + id);
     }
 
     @Override
     public void deleteReservationHistory(Long id) {
         ReservationHistory reservationHistory = reservationHistoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Reservation history not found by this id :: " + id));
+                .orElseThrow(() -> new ApiRequestException("Reservation history not found by this id :: " + id));
         reservationHistoryRepository.delete(reservationHistory);
     }
 }

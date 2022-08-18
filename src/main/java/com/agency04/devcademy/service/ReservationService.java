@@ -1,17 +1,18 @@
 package com.agency04.devcademy.service;
 
+import com.agency04.devcademy.forms.ReservationForm;
 import com.agency04.devcademy.model.Reservation;
 
 import java.util.List;
 
 public interface ReservationService {
-    Reservation createReservation(Reservation reservation);
-
-    Reservation updateReservation(Reservation reservation);
+    ReservationForm createReservationCommand(ReservationForm reservationForm);
 
     List<Reservation> getAllReservation();
 
-    Reservation getReservationById(Long id);
+    Reservation findById(Long id);
+
+    ReservationForm findCommandById(Long id);
 
     void deleteReservation(Long id);
 }

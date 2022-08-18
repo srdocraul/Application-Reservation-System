@@ -8,14 +8,10 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Data
-@NoArgsConstructor
+@Entity @Data @NoArgsConstructor
 public class ReservationHistory {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
+    @Id @GeneratedValue(strategy = GenerationType.AUTO) @NotNull
     private Long id;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy'T'HH:mm:ss'Z'")
