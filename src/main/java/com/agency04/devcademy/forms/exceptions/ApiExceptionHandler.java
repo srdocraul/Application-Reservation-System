@@ -1,4 +1,4 @@
-package com.agency04.devcademy.exceptions;
+package com.agency04.devcademy.forms.exceptions;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;

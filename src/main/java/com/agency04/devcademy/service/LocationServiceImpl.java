@@ -1,6 +1,6 @@
 package com.agency04.devcademy.service;
 
-import com.agency04.devcademy.exceptions.ApiRequestException;
+import com.agency04.devcademy.forms.exceptions.ApiRequestException;
 import com.agency04.devcademy.model.Location;
 import com.agency04.devcademy.repository.LocationRepository;
 import lombok.AllArgsConstructor;

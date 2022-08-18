@@ -1,6 +1,6 @@
 package com.agency04.devcademy.service;
 
-import com.agency04.devcademy.exceptions.ApiRequestException;
+import com.agency04.devcademy.forms.exceptions.ApiRequestException;
 import com.agency04.devcademy.model.Users;
 import com.agency04.devcademy.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;

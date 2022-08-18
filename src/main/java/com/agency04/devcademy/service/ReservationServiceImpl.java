@@ -2,8 +2,8 @@ package com.agency04.devcademy.service;
 
 import com.agency04.devcademy.converters.ReservationFormToReservation;
 import com.agency04.devcademy.converters.ReservationToReservationForm;
-import com.agency04.devcademy.exceptions.ApiRequestException;
 import com.agency04.devcademy.forms.ReservationForm;
+import com.agency04.devcademy.forms.exceptions.ApiRequestException;
 import com.agency04.devcademy.model.Reservation;
 import com.agency04.devcademy.repository.ReservationRepository;
 import org.springframework.stereotype.Service;

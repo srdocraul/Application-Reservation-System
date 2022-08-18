@@ -1,4 +1,4 @@
-package com.agency04.devcademy.exceptions;
+package com.agency04.devcademy.forms.exceptions;
 
 import lombok.Data;
 import org.springframework.http.HttpStatus;

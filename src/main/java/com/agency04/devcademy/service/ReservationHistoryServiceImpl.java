@@ -1,6 +1,6 @@
 package com.agency04.devcademy.service;
 
-import com.agency04.devcademy.exceptions.ApiRequestException;
+import com.agency04.devcademy.forms.exceptions.ApiRequestException;
 import com.agency04.devcademy.model.ReservationHistory;
 import com.agency04.devcademy.repository.ReservationHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
