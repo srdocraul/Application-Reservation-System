@@ -24,7 +24,7 @@ public class ReservationFormToReservation implements Converter<ReservationForm, 
         reservation.setPersonCount(source.getPersonCount());
         reservation.setSubmitted(source.isSubmitted());
         reservation.setAccommodation(source.getAccommodation());
-        reservation.setUsers(source.getUsers());
+        reservation.setUser(source.getUser());
         return reservation;
     }
 

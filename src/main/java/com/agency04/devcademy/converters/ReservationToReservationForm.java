@@ -22,7 +22,7 @@ public class ReservationToReservationForm implements Converter<Reservation, Rese
         reservationForm.setId(source.getId());
         reservationForm.setType(source.getType());
         reservationForm.setAccommodation(source.getAccommodation());
-        reservationForm.setUsers(source.getUsers());
+        reservationForm.setUser(source.getUser());
         reservationForm.setPersonCount(source.getPersonCount());
         reservationForm.setSubmitted(source.getSubmitted());
 

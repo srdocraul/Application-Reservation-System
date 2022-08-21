@@ -3,7 +3,7 @@ package com.agency04.devcademy.forms;
 import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.model.ReservationHistory;
 import com.agency04.devcademy.model.ReservationType;
-import com.agency04.devcademy.model.Users;
+import com.agency04.devcademy.model.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +26,6 @@ public class ReservationForm {
     @Schema(description = "The reservations submit", defaultValue = "Submitted", required = true)
     private boolean submitted;
     private Accommodation accommodation;
-    private Users users;
+    private User user;
     private Set<ReservationHistory> reservationHistory = new HashSet<>();
 }

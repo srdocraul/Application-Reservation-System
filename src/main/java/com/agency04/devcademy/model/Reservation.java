@@ -43,7 +43,7 @@ public class Reservation {
     private Accommodation accommodation;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private Users users;
+    private User user;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservation")
     @ToString.Exclude
     private Set<ReservationHistory> reservationHistory =
