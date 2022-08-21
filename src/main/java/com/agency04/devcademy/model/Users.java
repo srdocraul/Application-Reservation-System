@@ -2,11 +2,14 @@ package com.agency04.devcademy.model;
 
 import com.google.common.annotations.GwtCompatible;
 import com.sun.istack.NotNull;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -22,10 +25,16 @@ public class Users {
     @NotNull
     private Long id;
 
-    @Size(min = 1, max = 200)
+    @Min(1)
+    @Max(200)
+    @Schema(description = "The users first name", defaultValue = "First Name", required = true)
     private String firstName;
-    @Size(min = 1, max = 200)
+    @Min(1)
+    @Max(200)
+    @Schema(description = "The users last name", defaultValue = "Last Name", required = true)
     private String lastName;
+    @Schema(description = "The users email", defaultValue = "Email", required = true)
+    @Email
     private String email;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")

@@ -1,37 +1,31 @@
 package com.agency04.devcademy.forms;
 
+import com.agency04.devcademy.model.Accommodation;
+import com.agency04.devcademy.model.ReservationHistory;
 import com.agency04.devcademy.model.ReservationType;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.agency04.devcademy.model.Users;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
-@Validated
 public class ReservationForm {
     private Long id;
-
-    @NotNull @Enumerated(EnumType.STRING)
+    @Schema(description = "The reservations type", defaultValue = "Reservation Type", required = true)
     private ReservationType type;
-
-    @NotNull @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy'T'HH:mm:ss'Z'")
-    private LocalDateTime checkIn;
-
-    @NotNull @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy'T'HH:mm:ss'Z'")
-    private LocalDateTime checkOut;
-
-    @Min(value = 1) @Max(value = 500) @NotNull
+    @Schema(description = "The reservations check in", defaultValue = "Check In", required = true)
+    private java.util.Date checkIn;
+    @Schema(description = "The reservations check out", defaultValue = "Check Out", required = true)
+    private java.util.Date checkOut;
+    @Schema(description = "The reservations person count", defaultValue = "Person Count", required = true)
     private Integer personCount;
-
-    @NotNull @Column(columnDefinition = "BOOLEAN DEFAULT true")
-    private Boolean submitted;
+    @Schema(description = "The reservations submit", defaultValue = "Submitted", required = true)
+    private boolean submitted;
+    private Accommodation accommodation;
+    private Users users;
+    private Set<ReservationHistory> reservationHistory = new HashSet<>();
 }

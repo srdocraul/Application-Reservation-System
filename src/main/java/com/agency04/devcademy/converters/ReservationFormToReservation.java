@@ -5,7 +5,6 @@ import com.agency04.devcademy.model.Reservation;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.databind.util.Converter;
-import io.micrometer.core.lang.Nullable;
 import lombok.Synchronized;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Component;
 public class ReservationFormToReservation implements Converter<ReservationForm, Reservation> {
 
     @Synchronized
-    @Nullable
     @Override
     public Reservation convert(ReservationForm source) {
         if (source == null) {
@@ -23,10 +21,10 @@ public class ReservationFormToReservation implements Converter<ReservationForm, 
         final Reservation reservation = new Reservation();
         reservation.setId(source.getId());
         reservation.setType(source.getType());
-        reservation.setCheckIn(source.getCheckIn());
-        reservation.setCheckOut(source.getCheckOut());
         reservation.setPersonCount(source.getPersonCount());
-        reservation.setSubmitted(source.getSubmitted());
+        reservation.setSubmitted(source.isSubmitted());
+        reservation.setAccommodation(source.getAccommodation());
+        reservation.setUsers(source.getUsers());
         return reservation;
     }
 

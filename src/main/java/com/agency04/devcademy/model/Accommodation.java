@@ -1,34 +1,52 @@
 package com.agency04.devcademy.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.Set;
 
 @Entity
 @Table(name = "accommodation")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Validated
 public class Accommodation extends LocationTitleAndSubtitle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Schema(description = "The accommodations description", defaultValue = "Description", required = true)
     private String description;
-    @Size(min = 1, max = 5, message = "Category must be between 1 and 5 stars")
+    @Min(1)
+    @Max(5)
+    @Schema(description = "The accommodations categorization", defaultValue = "Categorization", required = true)
     private Integer categorization;
     @Enumerated(EnumType.STRING)
+    @Schema(description = "The accommodations type", defaultValue = "Accommodations Type", required = true)
     private AccommodationType type;
+    @Schema(description = "The accommodations person count", defaultValue = "Person Count", required = true)
     private Integer personCount;
     @Lob
+    @Schema(description = "The accommodations image", defaultValue = "Image", required = true)
     private Byte[] image;
+    @Schema(description = "The accommodations price", defaultValue = "Price", required = true)
     private Double price;
+    @Schema(description = "The accommodations owner name", defaultValue = "Owner Name", required = true)
     private String ownerName;
     @Column(columnDefinition = "BOOLEAN DEFAULT true")
+    @Schema(description = "The accommodations  free cancellation", defaultValue = "Free Cancellation", required =
+            true)
     private Boolean freeCancellation;
+    @Schema(description = "The accommodations facebook profile link", defaultValue = "Facebook", required = true)
     private String linkForFacebook;
+    @Schema(description = "The accommodations instagram profile link", defaultValue = "Instagram", required = true)
     private String linkForInstagram;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
