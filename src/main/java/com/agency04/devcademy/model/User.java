@@ -1,5 +1,6 @@
 package com.agency04.devcademy.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.annotations.GwtCompatible;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -29,7 +30,6 @@ public class User {
 
     @Schema(description = "The users first name", defaultValue = "First Name", required = true)
     private String firstName;
- 
     @Schema(description = "The users last name", defaultValue = "Last Name", required = true)
     private String lastName;
     @Schema(description = "The users username", defaultValue = "Username", required = true)
@@ -44,6 +44,11 @@ public class User {
     private Set<Reservation> reservation;
 
     @ManyToMany(fetch = EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JsonIgnore
     private Collection<Role> roles = new ArrayList<>();
 
     public User(String firstName, String lastName, String email) {
