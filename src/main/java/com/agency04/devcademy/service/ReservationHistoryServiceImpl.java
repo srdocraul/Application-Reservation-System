@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Service public class ReservationHistoryServiceImpl implements ReservationHistoryService {
+@Service
+public class ReservationHistoryServiceImpl implements ReservationHistoryService {
 
     @Autowired
     private ReservationHistoryRepository reservationHistoryRepository;

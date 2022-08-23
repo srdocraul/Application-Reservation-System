@@ -12,7 +12,8 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 class LocationServiceImplTest {
 
-    @Mock private LocationRepository locationRepository;
+    @Mock
+    private LocationRepository locationRepository;
     private LocationServiceImpl locationService;
 
     @BeforeEach

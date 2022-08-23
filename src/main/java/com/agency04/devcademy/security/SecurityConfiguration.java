@@ -29,12 +29,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    public void configure(HttpSecurity http) throws Exception {
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
         http.csrf().disable();
         http.headers().frameOptions().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
-        http.authorizeRequests().antMatchers("/login/** ").permitAll();
+        http.authorizeRequests().antMatchers("/login/**", "/h2-console/**").permitAll();
         http.authorizeRequests().antMatchers(GET, "/**").permitAll();
         http.authorizeRequests().antMatchers(POST, "/reservations").hasAnyAuthority("ROLE_USER");
         http.authorizeRequests().anyRequest().authenticated();
