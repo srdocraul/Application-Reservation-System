@@ -12,8 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -34,10 +32,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.headers().frameOptions().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
-        http.authorizeRequests().antMatchers("/login/**", "/h2-console/**").permitAll();
-        http.authorizeRequests().antMatchers(GET, "/**").permitAll();
-        http.authorizeRequests().antMatchers(POST, "/reservations").hasAnyAuthority("ROLE_USER");
-        http.authorizeRequests().anyRequest().authenticated();
+        //http.authorizeRequests().antMatchers("/login/**", "/h2-console/**").permitAll();
+        //http.authorizeRequests().antMatchers(GET, "/**").permitAll();
+        // http.authorizeRequests().antMatchers(POST, "/reservations").hasAnyAuthority("ROLE_USER");
+        http.authorizeRequests().anyRequest().permitAll();
         http.addFilter(customAuthenticationFilter);
     }
 

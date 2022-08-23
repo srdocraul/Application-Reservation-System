@@ -15,4 +15,6 @@ public interface ReservationService {
     ReservationForm findCommandById(Long id);
 
     void deleteReservation(Long id);
+
+    ReservationForm confirmReservation(ReservationForm reservationForm);
 }

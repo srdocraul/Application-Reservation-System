@@ -28,4 +28,12 @@ public class ReservationForm {
     private Accommodation accommodation;
     private User user;
     private Set<ReservationHistory> reservationHistory = new HashSet<>();
+
+    public void mapFrom(ReservationForm source) {
+        this.setType(source.getType());
+        this.setCheckIn(source.getCheckIn());
+        this.setCheckOut(source.getCheckOut());
+        this.setPersonCount(source.getPersonCount());
+        this.setSubmitted(source.isSubmitted());
+    }
 }

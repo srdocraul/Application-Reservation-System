@@ -60,4 +60,11 @@ public class ReservationController {
         this.reservationService.deleteReservation(id);
         return HttpStatus.OK;
     }
+
+    @Operation(summary = "Confirm Reservation", description = " This will save and confirm an existing Reservation. The " +
+            "Reservation must be already created in a Database")
+    @PutMapping("/confirm")
+    public ResponseEntity<ReservationForm> confirmReservation(@RequestBody ReservationForm reservationForm) {
+        return ResponseEntity.ok().body(this.reservationService.confirmReservation(reservationForm));
+    }
 }

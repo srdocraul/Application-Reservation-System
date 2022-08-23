@@ -5,9 +5,13 @@ import com.agency04.devcademy.converters.ReservationToReservationForm;
 import com.agency04.devcademy.exceptions.ApiRequestException;
 import com.agency04.devcademy.forms.ReservationForm;
 import com.agency04.devcademy.model.Reservation;
+import com.agency04.devcademy.model.ReservationHistory;
+import com.agency04.devcademy.repository.ReservationHistoryRepository;
 import com.agency04.devcademy.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
+import org.webjars.NotFoundException;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,12 +22,16 @@ public class ReservationServiceImpl implements ReservationService {
     private final ReservationFormToReservation reservationFormToReservation;
     private final ReservationToReservationForm reservationToReservationForm;
 
+    private final ReservationHistoryRepository reservationHistoryRepository;
+
     public ReservationServiceImpl(ReservationRepository reservationRepository,
                                   ReservationFormToReservation reservationFormToReservation,
-                                  ReservationToReservationForm reservationToReservationForm) {
+                                  ReservationToReservationForm reservationToReservationForm,
+                                  ReservationHistoryRepository reservationHistoryRepository) {
         this.reservationRepository = reservationRepository;
         this.reservationFormToReservation = reservationFormToReservation;
         this.reservationToReservationForm = reservationToReservationForm;
+        this.reservationHistoryRepository = reservationHistoryRepository;
     }
 
     @Override
@@ -59,5 +67,25 @@ public class ReservationServiceImpl implements ReservationService {
         Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new ApiRequestException("Reservation not found by this id :: " + id));
         reservationRepository.delete(reservation);
+    }
+
+    @Override
+    public ReservationForm confirmReservation(ReservationForm reservationForm) {
+        Optional<Reservation> reservationDb = this.reservationRepository.findById(reservationForm.getId());
+        if (reservationDb.isPresent()) {
+            Reservation reservationExists = reservationDb.get();
+            reservationExists.mapFrom(reservationForm);
+
+            ReservationHistory reservationHistory = new ReservationHistory();
+            reservationHistory.setFromType(reservationExists.getType());
+            reservationHistory.setToType(reservationForm.getType());
+            reservationExists.setType(reservationForm.getType());
+            reservationHistory.setEntryTimestamp(new Date());
+            reservationExists.addReservationHistory(reservationHistory);
+
+            reservationHistoryRepository.save(reservationHistory);
+            reservationRepository.save(reservationExists);
+            return reservationToReservationForm.convert(reservationExists);
+        } else throw new NotFoundException("Reservation not found!");
     }
 }

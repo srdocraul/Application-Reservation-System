@@ -1,16 +1,16 @@
 package com.agency04.devcademy.model;
 
 
+import com.agency04.devcademy.forms.ReservationForm;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -18,6 +18,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Validated
+@EqualsAndHashCode
 public class Reservation {
 
     @Id
@@ -46,20 +47,33 @@ public class Reservation {
     private User user;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservation")
     @ToString.Exclude
+    @JsonIgnore
     private Set<ReservationHistory> reservationHistory =
             new HashSet<>();
-
-    public void mapFrom(Reservation source) {
-        this.setType(source.getType());
-        this.setCheckIn(source.getCheckIn());
-        this.setCheckOut(source.getCheckOut());
-        this.setPersonCount(source.getPersonCount());
-        this.setSubmitted(source.getSubmitted());
-    }
 
     public Reservation addReservationHistory(ReservationHistory reservationHistory) {
         reservationHistory.setReservation(this);
         this.reservationHistory.add(reservationHistory);
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Reservation that)) return false;
+        return Objects.equals(getId(), that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
+
+    public void mapFrom(ReservationForm source) {
+        this.setType(source.getType());
+        this.setCheckIn(source.getCheckIn());
+        this.setCheckOut(source.getCheckOut());
+        this.setPersonCount(source.getPersonCount());
+        this.setSubmitted(source.isSubmitted());
     }
 }

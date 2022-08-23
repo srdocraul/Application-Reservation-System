@@ -26,7 +26,7 @@ public class ReservationHistoryServiceImpl implements ReservationHistoryService 
                 this.reservationHistoryRepository.findById(reservationHistory.getId());
         if (reservationHistoryDb.isPresent()) {
             ReservationHistory reservationHistoryUpdate = reservationHistoryDb.get();
-            reservationHistoryUpdate.mapFrom(reservationHistory);
+            //reservationHistoryUpdate.mapFrom(reservationHistory);
             return reservationHistoryUpdate;
         } else throw new ApiRequestException("Record not found with id : " + reservationHistory.getId());
 
