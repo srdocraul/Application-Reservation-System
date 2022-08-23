@@ -5,22 +5,6 @@ INSERT INTO location (title, subtitle, postal_code) VALUES ('Krk','Vinogradska u
 INSERT INTO location (title, subtitle, postal_code) VALUES ('Malinska','Klarina ul. 922',51511);
 INSERT INTO location (title, subtitle, postal_code) VALUES ('Opatija','Ul. Jurja Dobrile 6',51410);
 
-INSERT INTO role (name) VALUES ('ROLE_USER');
-INSERT INTO role (name) VALUES ('ROLE_ADMIN');
-
-INSERT INTO users (first_name, last_name, email, username, password) VALUES ('Raul', 'Srdoc', 'raul.srdoc6@gmail.com',
-'sraul' , '1234');
-INSERT INTO users (first_name, last_name, email, username, password) VALUES ('Marko', 'Markic', 'marko@gmail.com',
-'mmarko' , '3241');
-INSERT INTO users (first_name, last_name, email, username, password) VALUES ('Pero', 'Peric', 'rpero2@gmail.com',
-'ppero' , '9090');
-INSERT INTO users (first_name, last_name, email, username, password) VALUES ('Ana', 'Anic', 'aniic@gmail.com',
-'aanic' , '9999');
-
-INSERT INTO user_roles (user_id, role_id) VALUES (1,1);
-INSERT INTO user_roles (user_id, role_id) VALUES (2,1);
-INSERT INTO user_roles (user_id, role_id) VALUES (3,1);
-INSERT INTO user_roles (user_id, role_id) VALUES (4,1);
 
 
 INSERT INTO accommodation (title,subtitle,description,categorization,type,person_count,image,price,

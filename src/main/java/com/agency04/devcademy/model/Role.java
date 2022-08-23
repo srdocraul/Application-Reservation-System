@@ -1,29 +1,24 @@
 package com.agency04.devcademy.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import java.util.Set;
+import javax.persistence.Table;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import static javax.persistence.GenerationType.AUTO;
 
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "roles")
 public class Role {
-
-    @ManyToMany(mappedBy = "roles")
-    @JsonIgnore
-    Set<User> users;
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = AUTO)
     private Long id;
-    @Schema(description = "The users name", defaultValue = "Name", required = true)
     private String name;
 }

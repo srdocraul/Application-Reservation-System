@@ -1,65 +1,42 @@
 package com.agency04.devcademy.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.common.annotations.GwtCompatible;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.EAGER;
-import static javax.persistence.GenerationType.IDENTITY;
+import static javax.persistence.GenerationType.AUTO;
 
 @Entity
 @Data
-@NoArgsConstructor
-@GwtCompatible
 @Table(name = "users")
 public class User {
-
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = AUTO)
     private Long id;
-
-    @Schema(description = "The users first name", defaultValue = "First Name", required = true)
     private String firstName;
-    @Schema(description = "The users last name", defaultValue = "Last Name", required = true)
     private String lastName;
-    @Schema(description = "The users username", defaultValue = "Username", required = true)
+
     private String username;
-    @Schema(description = "The users password", defaultValue = "Password", required = true)
     private String password;
-    @Schema(description = "The users email", defaultValue = "Email", required = true)
-    @Email
-    private String email;
+    @ManyToMany(fetch = EAGER)
+    private Collection<Role> roles = new ArrayList<>();
 
     @OneToMany(cascade = ALL, mappedBy = "user")
     private Set<Reservation> reservation;
 
-    @ManyToMany(fetch = EAGER)
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    @JsonIgnore
-    private Collection<Role> roles = new ArrayList<>();
-
-    public User(String firstName, String lastName, String email) {
-        this.firstName = checkNotNull(firstName, "Enter Your First Name!");
-        this.lastName = checkNotNull(lastName, "Enter Your Last Name!");
-        this.email = checkNotNull(email, "E-mail is mandatory");
+    public User() {
     }
 
-    public void mapFrom(User source) {
-        this.setFirstName(source.getFirstName());
-        this.setLastName(source.getLastName());
-        this.setEmail(source.getEmail());
+    public User(String firstName, String lastName, String username, String password, Collection<Role> roles) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
     }
 }
