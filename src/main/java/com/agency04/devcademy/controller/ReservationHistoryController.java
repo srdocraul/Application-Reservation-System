@@ -42,16 +42,6 @@ public class ReservationHistoryController {
         return ResponseEntity.ok().body(this.reservationHistoryService.createReservationHistory(reservationHistory));
     }
 
-    @Operation(summary = "Update Reservation History By ID",
-            description = " This will update an existing Reservation History by its ID. The " +
-                    "ID must exist in a Database")
-    @PutMapping("/{id}")
-    public ResponseEntity<ReservationHistory> updateReservationHistory(@PathVariable Long id,
-                                                                       @RequestBody ReservationHistory reservationHistory) {
-        reservationHistory.setId(id);
-        return ResponseEntity.ok().body(this.reservationHistoryService.updateReservationHistory(reservationHistory));
-    }
-
     @Operation(summary = "Delete a Reservation History by its ID",
             description = "You can delete a Reservation History by its ID. The" +
                     " ID must exist in a Database!")

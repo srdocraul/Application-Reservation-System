@@ -5,8 +5,6 @@ INSERT INTO location (title, subtitle, postal_code) VALUES ('Krk','Vinogradska u
 INSERT INTO location (title, subtitle, postal_code) VALUES ('Malinska','Klarina ul. 922',51511);
 INSERT INTO location (title, subtitle, postal_code) VALUES ('Opatija','Ul. Jurja Dobrile 6',51410);
 
-
-
 INSERT INTO accommodation (title,subtitle,description,categorization,type,person_count,image,price,
 owner_name,link_for_facebook,link_for_instagram,free_cancellation,location_id)
 VALUES ('Apartment Rose','Luxury apartment','This is one of the best choice to experience life by the sea',

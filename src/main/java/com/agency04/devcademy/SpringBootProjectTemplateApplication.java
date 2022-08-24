@@ -22,7 +22,7 @@ public class SpringBootProjectTemplateApplication {
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
+    
     @Bean
     CommandLineRunner run(UserService userService) {
         return args -> {

@@ -21,18 +21,6 @@ public class ReservationHistoryServiceImpl implements ReservationHistoryService 
     }
 
     @Override
-    public ReservationHistory updateReservationHistory(ReservationHistory reservationHistory) {
-        Optional<ReservationHistory> reservationHistoryDb =
-                this.reservationHistoryRepository.findById(reservationHistory.getId());
-        if (reservationHistoryDb.isPresent()) {
-            ReservationHistory reservationHistoryUpdate = reservationHistoryDb.get();
-            //reservationHistoryUpdate.mapFrom(reservationHistory);
-            return reservationHistoryUpdate;
-        } else throw new ApiRequestException("Record not found with id : " + reservationHistory.getId());
-
-    }
-
-    @Override
     public List<ReservationHistory> getAllReservationHistory() {
         return this.reservationHistoryRepository.findAll();
     }
