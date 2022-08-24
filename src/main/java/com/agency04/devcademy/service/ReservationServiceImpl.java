@@ -9,7 +9,6 @@ import com.agency04.devcademy.model.ReservationHistory;
 import com.agency04.devcademy.repository.ReservationHistoryRepository;
 import com.agency04.devcademy.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 
 import java.util.Date;
 import java.util.List;
@@ -51,10 +50,9 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public Reservation findById(Long id) {
         Optional<Reservation> reservationOptional = reservationRepository.findById(id);
-        if (reservationOptional.isEmpty()) {
-            throw new ApiRequestException("Reservation not found! For id value: " + id);
-        }
-        return reservationOptional.get();
+        if (reservationOptional.isPresent()) {
+            return reservationOptional.get();
+        } else throw new ApiRequestException("Reservation not found! For id value: " + id);
     }
 
     @Override
@@ -70,7 +68,7 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public ReservationForm confirmReservation(ReservationForm reservationForm) throws Exception {
+    public ReservationForm confirmReservation(ReservationForm reservationForm) throws ApiRequestException {
         Optional<Reservation> reservationDb = this.reservationRepository.findById(reservationForm.getId());
         if (reservationDb.isPresent()) {
             Reservation reservationExists = reservationDb.get();
@@ -78,13 +76,13 @@ public class ReservationServiceImpl implements ReservationService {
             if (!reservationForm.getCheckIn().after(reservationForm.getCheckOut())) {
                 reservationExists.setCheckIn(reservationForm.getCheckIn());
                 reservationExists.setCheckOut(reservationForm.getCheckOut());
-            } else throw new Exception("Check In Date Must Be Before Check Out Date!");
+            } else throw new ApiRequestException("Check In Date Must Be Before Check Out Date!");
 
             if (reservationForm.getPersonCount() <= reservationExists.getAccommodation().getPersonCount()) {
                 reservationExists.setPersonCount(reservationForm.getPersonCount());
                 reservationExists.setSubmitted(reservationForm.isSubmitted());
             } else
-                throw new Exception("Maximum Person Allowed Is: " + reservationExists.getAccommodation().getPersonCount());
+                throw new ApiRequestException("Maximum Person Allowed Is: " + reservationExists.getAccommodation().getPersonCount());
 
             if (!reservationExists.getType().equals(reservationForm.getType())) {
                 ReservationHistory reservationHistory = new ReservationHistory();
@@ -98,6 +96,6 @@ public class ReservationServiceImpl implements ReservationService {
             }
             reservationRepository.save(reservationExists);
             return reservationToReservationForm.convert(reservationExists);
-        } else throw new NotFoundException("Reservation not found!");
+        } else throw new ApiRequestException("Reservation not found!");
     }
 }

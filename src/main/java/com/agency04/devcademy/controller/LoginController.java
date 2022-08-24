@@ -24,10 +24,10 @@ public class LoginController {
     @Operation(summary = "Save Login", description = "This will save a new Login of user")
     @PostMapping
     public HttpStatus saveNewLogin() throws Exception {
-        if (securityConfiguration.authenticationManagerBean() != null) {
-            log.info("Successful save of a new login!");
-            return HttpStatus.OK;
-        } else
-            return HttpStatus.BAD_REQUEST;
+        // if (securityConfiguration.authenticationManager != null) {
+        //   log.info("Successful save of a new login!");
+        // return HttpStatus.OK;
+        //} else
+        return HttpStatus.BAD_REQUEST;
     }
 }
