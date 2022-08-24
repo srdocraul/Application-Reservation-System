@@ -65,25 +65,37 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public void deleteReservation(Long id) {
         Reservation reservation = reservationRepository.findById(id)
-                .orElseThrow(() -> new ApiRequestException("Reservation not found by this id :: " + id));
+                .orElseThrow(() -> new ApiRequestException("Reservation not found by this id: " + id));
         reservationRepository.delete(reservation);
     }
 
     @Override
-    public ReservationForm confirmReservation(ReservationForm reservationForm) {
+    public ReservationForm confirmReservation(ReservationForm reservationForm) throws Exception {
         Optional<Reservation> reservationDb = this.reservationRepository.findById(reservationForm.getId());
         if (reservationDb.isPresent()) {
             Reservation reservationExists = reservationDb.get();
-            reservationExists.mapFrom(reservationForm);
 
-            ReservationHistory reservationHistory = new ReservationHistory();
-            reservationHistory.setFromType(reservationExists.getType());
-            reservationHistory.setToType(reservationForm.getType());
-            reservationExists.setType(reservationForm.getType());
-            reservationHistory.setEntryTimestamp(new Date());
-            reservationExists.addReservationHistory(reservationHistory);
+            if (!reservationForm.getCheckIn().after(reservationForm.getCheckOut())) {
+                reservationExists.setCheckIn(reservationForm.getCheckIn());
+                reservationExists.setCheckOut(reservationForm.getCheckOut());
+            } else throw new Exception("Check In Date Must Be Before Check Out Date!");
 
-            reservationHistoryRepository.save(reservationHistory);
+            if (reservationForm.getPersonCount() <= reservationExists.getAccommodation().getPersonCount()) {
+                reservationExists.setPersonCount(reservationForm.getPersonCount());
+                reservationExists.setSubmitted(reservationForm.isSubmitted());
+            } else
+                throw new Exception("Maximum Person Allowed Is: " + reservationExists.getAccommodation().getPersonCount());
+
+            if (!reservationExists.getType().equals(reservationForm.getType())) {
+                ReservationHistory reservationHistory = new ReservationHistory();
+                reservationHistory.setFromType(reservationExists.getType());
+                reservationHistory.setToType(reservationForm.getType());
+                reservationExists.setType(reservationForm.getType());
+                reservationHistory.setEntryTimestamp(new Date());
+                reservationExists.addReservationHistory(reservationHistory);
+
+                reservationHistoryRepository.save(reservationHistory);
+            }
             reservationRepository.save(reservationExists);
             return reservationToReservationForm.convert(reservationExists);
         } else throw new NotFoundException("Reservation not found!");

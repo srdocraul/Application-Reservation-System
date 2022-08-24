@@ -55,6 +55,7 @@ public class Accommodation extends LocationTitleAndSubtitle {
     private Location location;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accommodation")
+    @JsonIgnore
     private Set<Reservation> reservation;
 
     public void mapFrom(Accommodation source) {

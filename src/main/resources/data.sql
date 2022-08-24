@@ -58,6 +58,6 @@ owner_name,link_for_facebook,link_for_instagram,free_cancellation,location_id)
 VALUES ('Apartments Jadranovo','Best you can wish for','I hope',
 5,'APARTMENT',15,'www.Jakov.com',150,'Jakov ','www.link0190.com','www.lin89k92.com',true,2);
 
-INSERT INTO reservation (id,type,check_in,check_out,person_count,submitted) VALUES (1,'PERMANENT','2022-08-10',
-'2022-08-22', 10, FALSE);
+INSERT INTO reservation (id,type,check_in,check_out,person_count,submitted,accommodation_id) VALUES (1,'PERMANENT','2022-08-10',
+'2022-08-22', 10, FALSE,1);
 INSERT INTO reservation_history (id,entry_timestamp,from_type,to_type) VALUES (1,'2022-08-09 13:20:54', 'TEMPORARY', 'CANCELED');

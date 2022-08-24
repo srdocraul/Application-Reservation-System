@@ -1,5 +1,6 @@
 package com.agency04.devcademy.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -27,6 +28,7 @@ public class User {
     private Collection<Role> roles = new ArrayList<>();
 
     @OneToMany(cascade = ALL, mappedBy = "user")
+    @JsonIgnore
     private Set<Reservation> reservation;
 
     public User() {

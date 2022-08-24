@@ -64,7 +64,7 @@ public class ReservationController {
     @Operation(summary = "Confirm Reservation", description = " This will save and confirm an existing Reservation. The " +
             "Reservation must be already created in a Database")
     @PutMapping("/confirm")
-    public ResponseEntity<ReservationForm> confirmReservation(@RequestBody ReservationForm reservationForm) {
+    public ResponseEntity<ReservationForm> confirmReservation(@RequestBody ReservationForm reservationForm) throws Exception {
         return ResponseEntity.ok().body(this.reservationService.confirmReservation(reservationForm));
     }
 }
