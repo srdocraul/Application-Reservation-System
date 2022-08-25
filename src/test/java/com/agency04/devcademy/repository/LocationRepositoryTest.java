@@ -19,18 +19,18 @@ class LocationRepositoryTest {
 
     @Test
     void findLocation() {
-        String title = "Grad1";
-        Integer postalCode = 10000;
+        String title;
+        Integer postalCode;
 
         Location location1 = new Location(
-                title,
+                title = "title1",
                 "Subtitile",
-                postalCode
+                postalCode = 4100
         );
         Location location2 = new Location(
-                title,
+                title = "title1",
                 "Subtitile",
-                postalCode
+                postalCode = 5200
         );
 
         locationRepository.save(location1);

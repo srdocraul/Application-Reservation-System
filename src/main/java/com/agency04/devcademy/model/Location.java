@@ -1,11 +1,12 @@
 package com.agency04.devcademy.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,13 +14,13 @@ import java.util.List;
 @Table(name = "Location")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Location extends LocationTitleAndSubtitle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Size(min = 1, max = 5)
+    @Schema(description = "The location postal code", defaultValue = "Postal Code", required = true)
     private Integer postalCode;
 
     @OneToMany(mappedBy = "location")

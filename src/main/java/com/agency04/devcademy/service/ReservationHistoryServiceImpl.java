@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Service public class ReservationHistoryServiceImpl implements ReservationHistoryService {
+@Service
+public class ReservationHistoryServiceImpl implements ReservationHistoryService {
 
     @Autowired
     private ReservationHistoryRepository reservationHistoryRepository;
@@ -17,18 +18,6 @@ import java.util.Optional;
     @Override
     public ReservationHistory createReservationHistory(ReservationHistory reservationHistory) {
         return reservationHistoryRepository.save(reservationHistory);
-    }
-
-    @Override
-    public ReservationHistory updateReservationHistory(ReservationHistory reservationHistory) {
-        Optional<ReservationHistory> reservationHistoryDb =
-                this.reservationHistoryRepository.findById(reservationHistory.getId());
-        if (reservationHistoryDb.isPresent()) {
-            ReservationHistory reservationHistoryUpdate = reservationHistoryDb.get();
-            reservationHistoryUpdate.mapFrom(reservationHistory);
-            return reservationHistoryUpdate;
-        } else throw new ApiRequestException("Record not found with id : " + reservationHistory.getId());
-
     }
 
     @Override

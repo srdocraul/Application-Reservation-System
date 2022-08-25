@@ -69,7 +69,8 @@ public class AccommodationServiceImpl implements AccommodationService {
         } else throw new ApiRequestException("Record not found with id: " + id);
     }
 
-    @Override public List<Accommodation> getAllAccommodationRecommendation() {
+    @Override
+    public List<Accommodation> getAllAccommodationRecommendation() {
         List<Accommodation> shuffledList = new ArrayList<>();
         shuffledList = accommodationRepository.findAll();
         Collections.shuffle(shuffledList);
