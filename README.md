@@ -32,6 +32,7 @@ The accommodation reservation system is a web application that allows users to s
    <li>Run mvn clean install to build the project and install dependencies</li>
    <li>Run mvn spring-boot:run to start the application</li>
    <li>Access the application at http://localhost:8080</li>
+   <li>Access the API documentation at http://localhost:8080/api/swagger-ui/</li>
 </ul>
 
 <h2>Testing</h2>
